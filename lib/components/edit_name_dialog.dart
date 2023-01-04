@@ -46,7 +46,7 @@ class _EditNameDialogState extends State<EditNameDialog> {
       actions: [
         TextButton(
           style: TextButton.styleFrom(
-            primary: Colors.green,
+            foregroundColor: Colors.green,
             textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
           onPressed: () {
@@ -56,7 +56,7 @@ class _EditNameDialogState extends State<EditNameDialog> {
         ),
         TextButton(
           style: TextButton.styleFrom(
-            primary: Colors.green,
+            foregroundColor: Colors.green,
             textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
           onPressed: () async {

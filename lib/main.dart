@@ -7,13 +7,14 @@ import 'package:books_log_migration/pages/my_books_page.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:books_log_migration/services/firestore_service.dart';
 import 'package:books_log_migration/services/storage_service.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MyApp());
 }
 
@@ -105,6 +106,12 @@ class HomeController extends StatefulWidget {
 
 class _HomeControllerState extends State<HomeController> {
   @override
+  void initState() {
+    super.initState();
+    FlutterNativeSplash.remove();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: context.read<AuthService>().onAuthStateChanged,
@@ -129,8 +136,9 @@ class LoadingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SpinKitFoldingCube(
-          color: Colors.white70,
+        child: Text(
+          'Loading...',
+          style: TextStyle(color: Colors.white70),
         ),
       ),
     );

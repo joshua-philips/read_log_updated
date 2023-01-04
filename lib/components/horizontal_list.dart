@@ -82,7 +82,7 @@ List<Widget> writersRow(List<dynamic> authorName) {
         Text(
           authorName[count],
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 15,
             color: Colors.white.withOpacity(0.7),
           ),
         ),

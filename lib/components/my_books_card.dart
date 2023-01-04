@@ -48,7 +48,7 @@ class MyBooksCard extends StatelessWidget {
                   children: [
                     Text(
                       book.title,
-                      style: TextStyle(fontSize: 22),
+                      style: TextStyle(fontSize: 18),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0),

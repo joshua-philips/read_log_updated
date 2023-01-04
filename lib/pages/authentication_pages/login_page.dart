@@ -27,29 +27,10 @@ class LoginPage extends StatelessWidget {
             children: [
               SizedBox(height: 70),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      'assets/logo.png',
-                      scale: 3,
-                      filterQuality: FilterQuality.none,
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      "Keep track of your books with our exciting app",
-                      style: TextStyle(fontSize: 18, color: myGrey),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30),
-              Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
-                  "Login Now.",
+                  "Login now.",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.w500,

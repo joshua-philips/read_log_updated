@@ -23,6 +23,7 @@ class MyDrawer extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           children: [
             UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: Colors.green),
               accountName: Text(
                 user.displayName!,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),

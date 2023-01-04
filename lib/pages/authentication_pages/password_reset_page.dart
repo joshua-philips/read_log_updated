@@ -26,7 +26,7 @@ class PasswordResetPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
-                  "Reset Password",
+                  "Reset password",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.w500,
