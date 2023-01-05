@@ -56,7 +56,7 @@ class OpenLibraryWorks {
     List<Authors> newAuthors = [];
     json['authors'] != null
         ? json['authors'].forEach((v) {
-            newAuthors.add(new Authors.fromJson(v));
+            newAuthors.add(Authors.fromJson(v));
           })
         : newAuthors = [];
     return OpenLibraryWorks(

@@ -19,27 +19,25 @@ class _EditNameDialogState extends State<EditNameDialog> {
   Widget build(BuildContext context) {
     final User user = context.read<AuthService>().getCurrentUser();
     return AlertDialog(
-      contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-      title: Text('Enter Name'),
+      contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+      title: const Text('Enter Name'),
       content: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Container(
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                AuthTextFormField(
-                  controller: nameController,
-                  hintText: user.displayName!,
-                  prefixIcon: Icons.person,
-                  validator: (val) => val!.length < 3
-                      ? 'Name must contain at least 3 characters'
-                      : null,
-                  obscureText: false,
-                  autofocus: true,
-                ),
-              ],
-            ),
+        physics: const BouncingScrollPhysics(),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              AuthTextFormField(
+                controller: nameController,
+                hintText: user.displayName!,
+                prefixIcon: Icons.person,
+                validator: (val) => val!.length < 3
+                    ? 'Name must contain at least 3 characters'
+                    : null,
+                obscureText: false,
+                autofocus: true,
+              ),
+            ],
           ),
         ),
       ),
@@ -47,28 +45,30 @@ class _EditNameDialogState extends State<EditNameDialog> {
         TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Colors.green,
-            textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            textStyle:
+                const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('CANCEL'),
+          child: const Text('CANCEL'),
         ),
         TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Colors.green,
-            textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            textStyle:
+                const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           ),
           onPressed: () async {
             if (formKey.currentState!.validate()) {
               Route route =
-                  MaterialPageRoute(builder: (context) => ProfilePage());
+                  MaterialPageRoute(builder: (context) => const ProfilePage());
               await user.updateDisplayName(nameController.text);
               Navigator.pop(context);
               Navigator.pushReplacement(context, route);
             }
           },
-          child: Text('SAVE'),
+          child: const Text('SAVE'),
         ),
       ],
     );

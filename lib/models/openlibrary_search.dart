@@ -15,7 +15,7 @@ class OpenLibrarySearch {
   factory OpenLibrarySearch.fromJson(Map<String, dynamic> json) {
     List<Docs> newDocs = [];
     json['docs'].forEach((v) {
-      newDocs.add(new Docs.fromJson(v));
+      newDocs.add(Docs.fromJson(v));
     });
     return OpenLibrarySearch(
       numFound: json['numFound'] ?? 0,
@@ -27,12 +27,12 @@ class OpenLibrarySearch {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['numFound'] = this.numFound;
-    data['start'] = this.start;
-    data['numFoundExact'] = this.numFoundExact;
-    data['docs'] = this.docs.map((v) => v.toJson()).toList();
-    data['num_found'] = this.numFound;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['numFound'] = numFound;
+    data['start'] = start;
+    data['numFoundExact'] = numFoundExact;
+    data['docs'] = docs.map((v) => v.toJson()).toList();
+    data['num_found'] = numFound;
     return data;
   }
 }
@@ -217,63 +217,63 @@ class Docs {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['key'] = this.key;
-    data['text'] = this.text;
-    data['type'] = this.type;
-    data['seed'] = this.seed;
-    data['title'] = this.title;
-    data['title_suggest'] = this.titleSuggest;
-    data['has_fulltext'] = this.hasFulltext;
-    data['edition_count'] = this.editionCount;
-    data['edition_key'] = this.editionKey;
-    data['publish_date'] = this.publishDate;
-    data['publish_year'] = this.publishYear;
-    data['first_publish_year'] = this.firstPublishYear;
-    data['lccn'] = this.lccn;
-    data['publish_place'] = this.publishPlace;
-    data['oclc'] = this.oclc;
-    data['contributor'] = this.contributor;
-    data['lcc'] = this.lcc;
-    data['ddc'] = this.ddc;
-    data['isbn'] = this.isbn;
-    data['last_modified_i'] = this.lastModifiedI;
-    data['ebook_count_i'] = this.ebookCountI;
-    data['ia'] = this.ia;
-    data['public_scan_b'] = this.publicScanB;
-    data['ia_collection_s'] = this.iaCollectionS;
-    data['lending_edition_s'] = this.lendingEditionS;
-    data['lending_identifier_s'] = this.lendingIdentifierS;
-    data['printdisabled_s'] = this.printdisabledS;
-    data['cover_edition_key'] = this.coverEditionKey;
-    data['cover_i'] = this.coverI;
-    data['first_sentence'] = this.firstSentence;
-    data['publisher'] = this.publisher;
-    data['language'] = this.language;
-    data['author_key'] = this.authorKey;
-    data['author_name'] = this.authorName;
-    data['author_alternative_name'] = this.authorAlternativeName;
-    data['person'] = this.person;
-    data['place'] = this.place;
-    data['subject'] = this.subject;
-    data['time'] = this.time;
-    data['id_amazon'] = this.idAmazon;
-    data['id_goodreads'] = this.idGoodreads;
-    data['id_librarything'] = this.idLibrarything;
-    data['ia_box_id'] = this.iaBoxId;
-    data['publisher_facet'] = this.publisherFacet;
-    data['person_key'] = this.personKey;
-    data['time_facet'] = this.timeFacet;
-    data['place_key'] = this.placeKey;
-    data['person_facet'] = this.personFacet;
-    data['subject_facet'] = this.subjectFacet;
-    data['_version_'] = this.iVersion;
-    data['place_facet'] = this.placeFacet;
-    data['lcc_sort'] = this.lccSort;
-    data['author_facet'] = this.authorFacet;
-    data['subject_key'] = this.subjectKey;
-    data['time_key'] = this.timeKey;
-    data['ddc_sort'] = this.ddcSort;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['key'] = key;
+    data['text'] = text;
+    data['type'] = type;
+    data['seed'] = seed;
+    data['title'] = title;
+    data['title_suggest'] = titleSuggest;
+    data['has_fulltext'] = hasFulltext;
+    data['edition_count'] = editionCount;
+    data['edition_key'] = editionKey;
+    data['publish_date'] = publishDate;
+    data['publish_year'] = publishYear;
+    data['first_publish_year'] = firstPublishYear;
+    data['lccn'] = lccn;
+    data['publish_place'] = publishPlace;
+    data['oclc'] = oclc;
+    data['contributor'] = contributor;
+    data['lcc'] = lcc;
+    data['ddc'] = ddc;
+    data['isbn'] = isbn;
+    data['last_modified_i'] = lastModifiedI;
+    data['ebook_count_i'] = ebookCountI;
+    data['ia'] = ia;
+    data['public_scan_b'] = publicScanB;
+    data['ia_collection_s'] = iaCollectionS;
+    data['lending_edition_s'] = lendingEditionS;
+    data['lending_identifier_s'] = lendingIdentifierS;
+    data['printdisabled_s'] = printdisabledS;
+    data['cover_edition_key'] = coverEditionKey;
+    data['cover_i'] = coverI;
+    data['first_sentence'] = firstSentence;
+    data['publisher'] = publisher;
+    data['language'] = language;
+    data['author_key'] = authorKey;
+    data['author_name'] = authorName;
+    data['author_alternative_name'] = authorAlternativeName;
+    data['person'] = person;
+    data['place'] = place;
+    data['subject'] = subject;
+    data['time'] = time;
+    data['id_amazon'] = idAmazon;
+    data['id_goodreads'] = idGoodreads;
+    data['id_librarything'] = idLibrarything;
+    data['ia_box_id'] = iaBoxId;
+    data['publisher_facet'] = publisherFacet;
+    data['person_key'] = personKey;
+    data['time_facet'] = timeFacet;
+    data['place_key'] = placeKey;
+    data['person_facet'] = personFacet;
+    data['subject_facet'] = subjectFacet;
+    data['_version_'] = iVersion;
+    data['place_facet'] = placeFacet;
+    data['lcc_sort'] = lccSort;
+    data['author_facet'] = authorFacet;
+    data['subject_key'] = subjectKey;
+    data['time_key'] = timeKey;
+    data['ddc_sort'] = ddcSort;
     return data;
   }
 }

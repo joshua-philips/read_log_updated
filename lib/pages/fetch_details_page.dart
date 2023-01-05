@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:books_log_migration/components/book_details.dart';
 import 'package:books_log_migration/models/book.dart';
@@ -26,6 +27,7 @@ class _FetchDetailsPageState extends State<FetchDetailsPage> {
   late OpenLibraryWorks worksResult;
   late OpenLibraryBook bookResult;
 
+  @override
   void initState() {
     super.initState();
     fullFetch();
@@ -46,7 +48,7 @@ class _FetchDetailsPageState extends State<FetchDetailsPage> {
         fetchCompleted = true;
       });
     } catch (e) {
-      print(e);
+      log(e.toString());
       setState(() {
         fetchOngoing = false;
         error = true;
@@ -64,7 +66,7 @@ class _FetchDetailsPageState extends State<FetchDetailsPage> {
         worksResult = newWorks;
       });
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -79,7 +81,7 @@ class _FetchDetailsPageState extends State<FetchDetailsPage> {
         bookResult = newBook;
       });
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -96,7 +98,7 @@ class _FetchDetailsPageState extends State<FetchDetailsPage> {
 
   Widget buildBody() {
     if (fetchOngoing && fetchCompleted == false) {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(
           color: Colors.green,
         ),

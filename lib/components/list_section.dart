@@ -20,12 +20,12 @@ class ListSection extends StatelessWidget {
             sectionTitle,
             style: TextStyle(color: Colors.white.withOpacity(0.7)),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SizedBox(
             height: 30,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: children,
             ),
           ),

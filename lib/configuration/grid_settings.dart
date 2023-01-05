@@ -17,7 +17,7 @@ class GridSettings extends ChangeNotifier {
   }
 
   Future<void> initPrefs() async {
-    this.prefs = await SharedPreferences.getInstance();
+    prefs = await SharedPreferences.getInstance();
   }
 
   void loadFromPrefs() async {

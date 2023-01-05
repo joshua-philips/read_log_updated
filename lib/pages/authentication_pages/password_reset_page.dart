@@ -17,14 +17,13 @@ class PasswordResetPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 90),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              const SizedBox(height: 90),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
                   "Reset password",
                   style: TextStyle(
@@ -42,8 +41,8 @@ class PasswordResetPage extends StatelessWidget {
                 ),
               ),
               Container(
-                margin:
-                    EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20),
+                margin: const EdgeInsets.only(
+                    left: 20, right: 20, bottom: 20, top: 20),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -62,7 +61,7 @@ class PasswordResetPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: BlueButton(
@@ -89,11 +88,12 @@ class PasswordResetPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 30),
                   color: Colors.red,
                   minWidth: double.maxFinite,
                   height: 45,
-                  child: Text(
+                  child: const Text(
                     'Cancel',
                     style: TextStyle(fontSize: 18),
                   ),
@@ -114,10 +114,8 @@ class PasswordResetPage extends StatelessWidget {
       await context.read<AuthService>().sendPasswordResetMail(email);
       return done;
     } on FirebaseAuthException catch (e) {
-      print(e.message);
       return e.message!;
     } on Exception catch (e) {
-      print(e);
       return e.toString();
     }
   }

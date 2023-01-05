@@ -21,14 +21,13 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 70),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              const SizedBox(height: 70),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
                   "Login now.",
                   style: TextStyle(
@@ -44,11 +43,11 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Don\'t have an account? ",
+                      "Don't have an account? ",
                       style: TextStyle(fontSize: 20, color: myGrey),
                     ),
                     GestureDetector(
-                      child: Text(
+                      child: const Text(
                         "Register",
                         style: TextStyle(
                           fontSize: 20,
@@ -57,7 +56,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       onTap: () {
                         Route route = MaterialPageRoute(
-                            builder: (context) => RegisterPage());
+                            builder: (context) => const RegisterPage());
                         Navigator.push(context, route);
                       },
                     )
@@ -65,7 +64,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
                 child: Form(
                   key: formKey,
                   child: Column(
@@ -80,7 +79,7 @@ class LoginPage extends StatelessWidget {
                                 : null,
                         obscureText: false,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       AuthTextFormField(
                         controller: passwordController,
                         hintText: 'Password',
@@ -89,7 +88,7 @@ class LoginPage extends StatelessWidget {
                             val!.isEmpty ? 'Enter password' : null,
                         obscureText: true,
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
@@ -99,7 +98,7 @@ class LoginPage extends StatelessWidget {
                             style: TextStyle(fontSize: 20, color: myGrey),
                           ),
                           GestureDetector(
-                            child: Text(
+                            child: const Text(
                               "Reset",
                               style: TextStyle(
                                 fontSize: 20,
@@ -108,7 +107,8 @@ class LoginPage extends StatelessWidget {
                             ),
                             onTap: () {
                               Route route = MaterialPageRoute(
-                                  builder: (context) => PasswordResetPage());
+                                  builder: (context) =>
+                                      const PasswordResetPage());
                               Navigator.push(context, route);
                             },
                           ),
@@ -118,7 +118,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: BlueButton(
@@ -153,7 +153,6 @@ class LoginPage extends StatelessWidget {
           .loginWithEmailAndPassword(email, password);
       return done;
     } on FirebaseAuthException catch (e) {
-      print(e.message);
       return e.message!;
     }
   }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:books_log_migration/components/horizontal_list.dart';
 import 'package:books_log_migration/components/my_drawer.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -39,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
         searchCompleted = true;
       });
     } catch (e) {
-      print('Error: ' + e.toString());
+      log('Error: ' + e.toString());
       setState(() {
         searchOngoing = false;
         error = true;
@@ -50,11 +51,11 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(currentPage: CurrentPage.SEARCH),
+      drawer: const MyDrawer(currentPage: CurrentPage.SEARCH),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Container(
-          padding: EdgeInsets.only(left: 8, right: 5),
+          padding: const EdgeInsets.only(left: 8, right: 5),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
@@ -94,36 +95,37 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget buildSearchBody() {
     if (searchOngoing && searchCompleted == false) {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(
           color: Colors.green,
         ),
       );
     } else if (searchOngoing == false && searchCompleted) {
       return results.numFound <= 0
-          ? Center(
+          ? const Center(
               child: Text('No Results'),
             )
           : Scrollbar(
               child: ListView.builder(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: results.docs.length,
                 itemBuilder: (context, index) => GestureDetector(
                   child: Card(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
                       title: Text(
                         results.docs[index].title,
-                        style: TextStyle(fontSize: 25),
+                        style: const TextStyle(fontSize: 25),
                       ),
                       subtitle: Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: SizedBox(
                           height: 25,
                           child: ListView(
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             children:
                                 writersRow(results.docs[index].authorName),
@@ -144,7 +146,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             );
     } else if (error) {
-      return Center(
+      return const Center(
         child: Text('Server error'),
       );
     } else {

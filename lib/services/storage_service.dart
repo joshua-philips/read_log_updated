@@ -1,16 +1,17 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 
 class StorageService {
-  FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<String> uploadProfilePhoto(File image, String fileName) async {
     UploadTask uploadTask =
         _storage.ref().child('$fileName.jpg').putFile(image);
 
     TaskSnapshot taskSnapshot =
-        await uploadTask.whenComplete(() => print('Upload Complete'));
+        await uploadTask.whenComplete(() => log('Upload Complete'));
 
     return await taskSnapshot.ref.getDownloadURL();
   }

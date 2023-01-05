@@ -29,21 +29,22 @@ class _ProfilePageState extends State<ProfilePage> {
         actions: [
           TextButton.icon(
             style: TextButton.styleFrom(
-              primary: Colors.white.withOpacity(0.4),
+              foregroundColor: Colors.white.withOpacity(0.4),
             ),
             onPressed: () {
               showDialog(
-                  context: context, builder: (context) => EditNameDialog());
+                  context: context,
+                  builder: (context) => const EditNameDialog());
             },
-            icon: Icon(Icons.edit),
-            label: Text('Change Name'),
+            icon: const Icon(Icons.edit),
+            label: const Text('Change Name'),
           ),
         ],
       ),
-      drawer: MyDrawer(currentPage: CurrentPage.PROFILE),
+      drawer: const MyDrawer(currentPage: CurrentPage.PROFILE),
       body: Scrollbar(
         child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
             Padding(
               padding: const EdgeInsets.all(12),
@@ -65,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(context, route);
                     },
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     user.email!,
                     style: TextStyle(
@@ -76,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            Divider(height: 0),
+            const Divider(height: 0),
             InkWell(
               child: Padding(
                 padding:
@@ -90,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.white.withOpacity(0.7),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     StreamBuilder(
                       stream: context
                           .read<FirestoreService>()
@@ -118,8 +119,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               onTap: () {
-                Route route =
-                    MaterialPageRoute(builder: (context) => MyBooksPage());
+                Route route = MaterialPageRoute(
+                    builder: (context) => const MyBooksPage());
                 Navigator.push(context, route);
               },
             ),
@@ -136,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.white.withOpacity(0.7),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     StreamBuilder(
                       stream: context
                           .read<FirestoreService>()
@@ -164,8 +165,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               onTap: () {
-                Route route =
-                    MaterialPageRoute(builder: (context) => ReadingListPage());
+                Route route = MaterialPageRoute(
+                    builder: (context) => const ReadingListPage());
                 Navigator.push(context, route);
               },
             ),
@@ -191,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
             //     ],
             //   ),
             // ),
-            Divider(height: 0),
+            const Divider(height: 0),
           ],
         ),
       ),

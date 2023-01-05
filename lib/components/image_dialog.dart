@@ -24,7 +24,7 @@ class NetworkImageDialog extends StatelessWidget {
             child: Text(
               imageTitle,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30),
+              style: const TextStyle(fontSize: 30),
             ),
           ),
           loadingBuilder: (context, child, loadingProgress) =>
@@ -34,7 +34,7 @@ class NetworkImageDialog extends StatelessWidget {
                       child: Text(
                         imageTitle,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 30),
+                        style: const TextStyle(fontSize: 30),
                       ),
                     ),
         ),

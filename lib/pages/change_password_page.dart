@@ -24,7 +24,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change Password'),
+        title: const Text('Change Password'),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -42,7 +42,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   validator: (val) => val!.isEmpty ? 'Enter password' : null,
                   obscureText: true,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 AuthTextFormField(
                   controller: newPasswordController,
                   hintText: 'New Password',
@@ -51,7 +51,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       val!.length < 6 ? 'Invalid Password' : null,
                   obscureText: true,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 AuthTextFormField(
                   controller: confirmPasswordController,
                   hintText: 'Confirm Password',
@@ -62,7 +62,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   obscureText: true,
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: BlueButton(
                     buttonText: 'Update Password',
                     onPressed: () async {

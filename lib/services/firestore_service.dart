@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:books_log_migration/models/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> uploadBook(Book book, String uid) {
     return _firestore
@@ -67,7 +69,6 @@ class FirestoreService {
         .doc(uid)
         .collection(inBooks ? 'books' : 'readingList')
         .doc(documentId)
-        .update({'review': review}).catchError(
-            (error) => print('ERROR: $error'));
+        .update({'review': review}).catchError((error) => log('ERROR: $error'));
   }
 }

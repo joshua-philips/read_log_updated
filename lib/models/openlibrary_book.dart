@@ -84,70 +84,70 @@ class OpenLibraryBook {
     List<Authors> newAuthors = [];
     json['authors'] != null
         ? json['authors'].forEach((v) {
-            newAuthors.add(new Authors.fromJson(v));
+            newAuthors.add(Authors.fromJson(v));
           })
         : newAuthors = [];
 
     List<Publishers> newPublishers = [];
     json['publishers'] != null
         ? json['publishers'].forEach((v) {
-            newPublishers.add(new Publishers.fromJson(v));
+            newPublishers.add(Publishers.fromJson(v));
           })
         : newPublishers = [];
 
     List<PublishPlaces> newPublishPlaces = [];
     json['publish_places'] != null
         ? json['publish_places'].forEach((v) {
-            newPublishPlaces.add(new PublishPlaces.fromJson(v));
+            newPublishPlaces.add(PublishPlaces.fromJson(v));
           })
         : newPublishPlaces = [];
 
     List<Subjects> newSubjects = [];
     json['subjects'] != null
         ? json['subjects'].forEach((v) {
-            newSubjects.add(new Subjects.fromJson(v));
+            newSubjects.add(Subjects.fromJson(v));
           })
         : newSubjects = [];
 
     List<SubjectPlaces> newSubjectPlaces = [];
     json['subject_places'] != null
         ? json['subject_places'].forEach((v) {
-            newSubjectPlaces.add(new SubjectPlaces.fromJson(v));
+            newSubjectPlaces.add(SubjectPlaces.fromJson(v));
           })
         : newSubjectPlaces = [];
 
     List<SubjectPeople> newSubjectPeople = [];
     json['subject_people'] != null
         ? json['subject_people'].forEach((v) {
-            newSubjectPeople.add(new SubjectPeople.fromJson(v));
+            newSubjectPeople.add(SubjectPeople.fromJson(v));
           })
         : newSubjectPeople = [];
 
     List<SubjectTimes> newSubjectTimes = [];
     json['subject_times'] != null
         ? json['subject_times'].forEach((v) {
-            newSubjectTimes.add(new SubjectTimes.fromJson(v));
+            newSubjectTimes.add(SubjectTimes.fromJson(v));
           })
         : newSubjectTimes = [];
 
     List<Ebooks> newEbooks = [];
     json['ebooks'] != null
         ? json['ebooks'].forEach((v) {
-            newEbooks.add(new Ebooks.fromJson(v));
+            newEbooks.add(Ebooks.fromJson(v));
           })
         : newEbooks = [];
 
     List<Excerpts> newExcerpts = [];
     json['excerpts'] != null
         ? json['excerpts'].forEach((v) {
-            newExcerpts.add(new Excerpts.fromJson(v));
+            newExcerpts.add(Excerpts.fromJson(v));
           })
         : newExcerpts = [];
 
     List<Links> newLinks = [];
     json['links'] != null
         ? json['links'].forEach((v) {
-            newLinks.add(new Links.fromJson(v));
+            newLinks.add(Links.fromJson(v));
           })
         : newLinks = [];
 
@@ -275,9 +275,9 @@ class Links {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['url'] = this.url;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['url'] = url;
     return data;
   }
 }

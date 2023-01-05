@@ -25,14 +25,14 @@ class _ReadingListPageState extends State<ReadingListPage> {
   Widget build(BuildContext context) {
     final User user = context.read<AuthService>().getCurrentUser();
     return Scaffold(
-      drawer: MyDrawer(currentPage: CurrentPage.READING_LIST),
+      drawer: const MyDrawer(currentPage: CurrentPage.READING_LIST),
       body: Scrollbar(
         thickness: 2,
         child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
-              title: Text('Reading List'),
+              title: const Text('Reading List'),
               actions: [
                 IconButton(
                   icon: Icon(context.watch<GridSettings>().readingListGrid
@@ -59,18 +59,18 @@ class _ReadingListPageState extends State<ReadingListPage> {
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasError) {
-                          return Container(
+                          return SizedBox(
                             height: MediaQuery.of(context).size.height / 1.5,
-                            child: Center(
+                            child: const Center(
                                 child: Text('Oops! Something went wrong')),
                           );
                         }
 
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Container(
+                          return SizedBox(
                             height: MediaQuery.of(context).size.height / 1.5,
-                            child: Center(
+                            child: const Center(
                               child: CircularProgressIndicator(
                                 color: Colors.green,
                               ),
@@ -79,9 +79,9 @@ class _ReadingListPageState extends State<ReadingListPage> {
                         }
 
                         if (snapshot.hasData) {
-                          return snapshot.data!.docs.length > 0
+                          return snapshot.data!.docs.isNotEmpty
                               ? body(snapshot, context)
-                              : Container(
+                              : SizedBox(
                                   height:
                                       MediaQuery.of(context).size.height / 1.5,
                                   child: Center(
@@ -109,7 +109,8 @@ class _ReadingListPageState extends State<ReadingListPage> {
         mini: true,
         child: Icon(Icons.add, color: Colors.white.withOpacity(0.7)),
         onPressed: () {
-          Route route = MaterialPageRoute(builder: (context) => SearchPage());
+          Route route =
+              MaterialPageRoute(builder: (context) => const SearchPage());
           Navigator.push(context, route);
         },
       ),
@@ -121,7 +122,7 @@ class _ReadingListPageState extends State<ReadingListPage> {
     if (context.watch<GridSettings>().readingListGrid) {
       return GridView.count(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         crossAxisCount: 3,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
@@ -141,7 +142,7 @@ class _ReadingListPageState extends State<ReadingListPage> {
     } else {
       return ListView(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: snapshot.data!.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
           Book book = Book.fromJson(data);

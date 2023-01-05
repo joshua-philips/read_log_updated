@@ -34,7 +34,7 @@ class AuthTextFormField extends StatelessWidget {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(5),
         ),
-        contentPadding: EdgeInsets.all(8),
+        contentPadding: const EdgeInsets.all(8),
       ),
       obscureText: obscureText,
       validator: validator,

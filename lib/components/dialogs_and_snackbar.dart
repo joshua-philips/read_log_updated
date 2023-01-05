@@ -5,7 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 void showLoadingDialog(BuildContext context) {
   showDialog(
     context: context,
-    builder: (context) => Dialog(
+    builder: (context) => const Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
       child: SpinKitRing(
@@ -33,7 +33,7 @@ void showMessageDialog(BuildContext context, String title, String message) {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('OK'),
+          child: const Text('OK'),
         ),
       ],
     ),
@@ -42,27 +42,25 @@ void showMessageDialog(BuildContext context, String title, String message) {
 
 void showMessageSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    duration: Duration(seconds: 5),
+    duration: const Duration(seconds: 5),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(5),
     ),
-    content: Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Flexible(
-              child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                message,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              )
-            ],
-          )),
-        ],
-      ),
+    content: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Flexible(
+            child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            )
+          ],
+        )),
+      ],
     ),
   ));
 }

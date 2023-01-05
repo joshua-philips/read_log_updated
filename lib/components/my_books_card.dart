@@ -14,7 +14,7 @@ class MyBooksCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 8),
       child: InkWell(
         onTap: () {
           Route route = MaterialPageRoute(
@@ -26,7 +26,7 @@ class MyBooksCard extends StatelessWidget {
         onLongPress: () {
           showModalBottomSheet(
             context: context,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(5),
                 topRight: Radius.circular(5),
@@ -37,25 +37,25 @@ class MyBooksCard extends StatelessWidget {
           );
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           child: Row(
             children: [
               BookImage(book: book),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       book.title,
-                      style: TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0),
                       child: SizedBox(
                         height: 25,
                         child: ListView(
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           children: writersRow(book.author),
                         ),

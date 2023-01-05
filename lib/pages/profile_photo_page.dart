@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:books_log_migration/components/dialogs_and_snackbar.dart';
@@ -25,7 +26,7 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Profile photo'),
+        title: const Text('Profile photo'),
         elevation: 0,
         backgroundColor: Colors.black,
         actions: [
@@ -33,16 +34,16 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
             onPressed: () {
               selectImage();
             },
-            icon: Icon(Icons.edit_rounded),
+            icon: const Icon(Icons.edit_rounded),
           ),
         ],
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Spacer(),
+          const Spacer(),
           photoSet
-              ? Container(
+              ? SizedBox(
                   height: MediaQuery.of(context).size.height * 0.6,
                   width: double.maxFinite,
                   child: Image.file(
@@ -50,7 +51,7 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
                     fit: BoxFit.cover,
                   ),
                 )
-              : Container(
+              : SizedBox(
                   height: MediaQuery.of(context).size.height * 0.6,
                   width: double.maxFinite,
                   child: Image.network(
@@ -58,7 +59,7 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-          Spacer(),
+          const Spacer(),
           MaterialButton(
             color: Colors.green,
             onPressed: () async {
@@ -78,9 +79,9 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
                 showMessageSnackBar(context, 'Photo not changed');
               }
             },
-            child: Text('Save'),
+            child: const Text('Save'),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
         ],
       ),
     );
@@ -91,13 +92,13 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
     String photoUrl = await context
         .read<StorageService>()
         .uploadProfilePhoto(imageFile, user.email!)
-        .whenComplete(() => print('upload complete'));
+        .whenComplete(() => log('upload complete'));
     await context.read<AuthService>().setProfilePhoto(photoUrl);
   }
 
   Future<void> selectImage() async {
-    final PickedFile? pickedFile =
-        await _picker.getImage(source: ImageSource.gallery);
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
     final File file = File(pickedFile!.path);
     setState(() {
       imageFile = file;

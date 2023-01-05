@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:books_log_migration/models/openlibrary_book.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -7,8 +9,8 @@ List<Widget> horizontalDetailList(List detailList) {
   for (int count = 0; count < detailList.length; count++) {
     widgetList.add(
       Container(
-        padding: EdgeInsets.only(left: 8, right: 8, top: 5),
-        margin: EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.only(left: 8, right: 8, top: 5),
+        margin: const EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
           color: Colors.grey.shade600,
           borderRadius: BorderRadius.circular(2),
@@ -28,8 +30,8 @@ List<Widget> horizontalDetailListSorted(List detailList) {
   for (int count = 0; count < detailList.length; count++) {
     widgetList.add(
       Container(
-        padding: EdgeInsets.only(left: 8, right: 8, top: 5),
-        margin: EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.only(left: 8, right: 8, top: 5),
+        margin: const EdgeInsets.only(right: 10),
         decoration: BoxDecoration(
           color: Colors.grey.shade600,
           borderRadius: BorderRadius.circular(2),
@@ -49,10 +51,10 @@ List<Widget> listOfLinks(List<Links> list, BuildContext context) {
     widgetList.add(
       InkWell(
         child: Container(
-          padding: EdgeInsets.only(left: 8, right: 8, top: 5),
-          margin: EdgeInsets.only(right: 10),
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 5),
+          margin: const EdgeInsets.only(right: 10),
           decoration: BoxDecoration(
-            color: Color(0xff07446C),
+            color: const Color(0xff07446C),
             borderRadius: BorderRadius.circular(2),
           ),
           child: Text(
@@ -64,7 +66,7 @@ List<Widget> listOfLinks(List<Links> list, BuildContext context) {
           if (await canLaunch(list[count].url)) {
             await launch(list[count].url);
           } else {
-            print('Could not launch');
+            log('Could not launch');
           }
         },
       ),
@@ -101,7 +103,7 @@ List<Widget> writersRow(List<dynamic> authorName) {
     }
   } else {
     writers.add(
-      Text(
+      const Text(
         'Unknown',
         style: TextStyle(fontSize: 20),
       ),

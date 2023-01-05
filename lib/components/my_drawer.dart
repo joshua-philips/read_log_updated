@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: constant_identifier_names
 enum CurrentPage { SEARCH, PROFILE, MY_BOOKS, READING_LIST }
 
 class MyDrawer extends StatelessWidget {
@@ -20,13 +21,14 @@ class MyDrawer extends StatelessWidget {
       child: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.green),
+              decoration: const BoxDecoration(color: Colors.green),
               accountName: Text(
                 user.displayName!,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               accountEmail: Text(
                 user.email!,
@@ -48,8 +50,8 @@ class MyDrawer extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  Route route =
-                      MaterialPageRoute(builder: (context) => ProfilePage());
+                  Route route = MaterialPageRoute(
+                      builder: (context) => const ProfilePage());
                   Navigator.pop(context);
                   if (currentPage != CurrentPage.PROFILE) {
                     Navigator.push(context, route);
@@ -62,13 +64,14 @@ class MyDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.person_rounded),
-                    title: Text('Profile', style: TextStyle(fontSize: 18)),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                    leading: const Icon(Icons.person_rounded),
+                    title:
+                        const Text('Profile', style: TextStyle(fontSize: 18)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     horizontalTitleGap: 0,
                     onTap: () {
                       Route route = MaterialPageRoute(
-                          builder: (context) => ProfilePage());
+                          builder: (context) => const ProfilePage());
                       Navigator.pop(context);
                       if (currentPage != CurrentPage.PROFILE) {
                         Navigator.push(context, route);
@@ -76,9 +79,10 @@ class MyDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.book_rounded),
-                    title: Text('My Books', style: TextStyle(fontSize: 18)),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                    leading: const Icon(Icons.book_rounded),
+                    title:
+                        const Text('My Books', style: TextStyle(fontSize: 18)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     horizontalTitleGap: 0,
                     onTap: () {
                       Navigator.pop(context);
@@ -89,13 +93,14 @@ class MyDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.search),
-                    title: Text('Search & Add', style: TextStyle(fontSize: 18)),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                    leading: const Icon(Icons.search),
+                    title: const Text('Search & Add',
+                        style: TextStyle(fontSize: 18)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     horizontalTitleGap: 0,
                     onTap: () {
-                      Route route =
-                          MaterialPageRoute(builder: (context) => SearchPage());
+                      Route route = MaterialPageRoute(
+                          builder: (context) => const SearchPage());
                       Navigator.pop(context);
                       if (currentPage != CurrentPage.SEARCH) {
                         Navigator.push(context, route);
@@ -103,13 +108,14 @@ class MyDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.watch_later_rounded),
-                    title: Text('Reading List', style: TextStyle(fontSize: 18)),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                    leading: const Icon(Icons.watch_later_rounded),
+                    title: const Text('Reading List',
+                        style: TextStyle(fontSize: 18)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     horizontalTitleGap: 0,
                     onTap: () {
                       Route route = MaterialPageRoute(
-                          builder: (context) => ReadingListPage());
+                          builder: (context) => const ReadingListPage());
                       Navigator.pop(context);
                       if (currentPage != CurrentPage.READING_LIST) {
                         Navigator.push(context, route);
@@ -119,27 +125,29 @@ class MyDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(),
+            const Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(Icons.settings_rounded),
-                    title: Text('Settings', style: TextStyle(fontSize: 18)),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                    leading: const Icon(Icons.settings_rounded),
+                    title:
+                        const Text('Settings', style: TextStyle(fontSize: 18)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     horizontalTitleGap: 0,
                     onTap: () {
                       Route route = MaterialPageRoute(
-                          builder: (context) => ChangePasswordPage());
+                          builder: (context) => const ChangePasswordPage());
                       Navigator.pop(context);
                       Navigator.push(context, route);
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.logout_rounded),
-                    title: Text('Log Out', style: TextStyle(fontSize: 18)),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                    leading: const Icon(Icons.logout_rounded),
+                    title:
+                        const Text('Log Out', style: TextStyle(fontSize: 18)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 0),
                     horizontalTitleGap: 0,
                     onTap: () async {
                       await context.read<AuthService>().signOut();

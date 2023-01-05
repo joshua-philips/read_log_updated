@@ -28,7 +28,7 @@ class MyBooksImage extends StatelessWidget {
       onLongPress: () {
         showModalBottomSheet(
           context: context,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(5),
               topRight: Radius.circular(5),

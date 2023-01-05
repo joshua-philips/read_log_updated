@@ -15,10 +15,12 @@ import 'package:provider/provider.dart';
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -54,7 +56,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // Show error message if initialization failed
     if (_error) {
-      return Text('Error');
+      return const Text('Error');
     }
 
     // Show a loader until FlutterFire is initialized
@@ -81,17 +83,17 @@ class _MyAppState extends State<MyApp> {
           primaryColor: Colors.grey[900],
           scaffoldBackgroundColor: blackBackground,
           indicatorColor: Colors.green,
-          textSelectionTheme: TextSelectionThemeData(
+          textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Colors.green,
           ),
-          pageTransitionsTheme: PageTransitionsTheme(
+          pageTransitionsTheme: const PageTransitionsTheme(
             builders: {
               TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
             },
           ),
-          dividerTheme: DividerThemeData(thickness: 1.5),
+          dividerTheme: const DividerThemeData(thickness: 1.5),
         ),
-        home: HomeController(),
+        home: const HomeController(),
       ),
     );
   }
@@ -118,12 +120,12 @@ class _HomeControllerState extends State<HomeController> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
-            return MyBooksPage();
+            return const MyBooksPage();
           } else {
-            return LoginPage();
+            return const LoginPage();
           }
         }
-        return LoadingScreen();
+        return const LoadingScreen();
       },
     );
   }
@@ -134,7 +136,7 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text(
           'Loading...',

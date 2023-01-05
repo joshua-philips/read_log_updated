@@ -56,7 +56,7 @@ class Book {
     List<Links> newLinks = [];
     json['links'] != null
         ? json['links'].forEach((v) {
-            newLinks.add(new Links.fromJson(v));
+            newLinks.add(Links.fromJson(v));
           })
         : newLinks = [];
     return Book(
@@ -78,21 +78,21 @@ class Book {
   }
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['author'] = this.author;
-    data['coverImage'] = this.coverImage;
-    data['firstPublishYear'] = this.firstPublishYear;
-    data['review'] = this.review;
-    data['publishYear'] = this.publishYear;
-    data['time'] = this.time;
-    data['summary'] = this.summary;
-    data['person'] = this.person;
-    data['place'] = this.place;
-    data['publisher'] = this.publisher;
-    data['subject'] = this.subject;
-    data['links'] = this.links.map((e) => e.toJson()).toList();
-    data['dateAdded'] = this.dateAdded;
+    Map<String, dynamic> data = <String, dynamic>{};
+    data['title'] = title;
+    data['author'] = author;
+    data['coverImage'] = coverImage;
+    data['firstPublishYear'] = firstPublishYear;
+    data['review'] = review;
+    data['publishYear'] = publishYear;
+    data['time'] = time;
+    data['summary'] = summary;
+    data['person'] = person;
+    data['place'] = place;
+    data['publisher'] = publisher;
+    data['subject'] = subject;
+    data['links'] = links.map((e) => e.toJson()).toList();
+    data['dateAdded'] = dateAdded;
 
     return data;
   }
@@ -102,6 +102,6 @@ class Book {
   }
 
   void setDateAdded(DateTime date) {
-    this.dateAdded = date;
+    dateAdded = date;
   }
 }

@@ -24,21 +24,21 @@ class MyBottomSheet extends StatelessWidget {
         .watch<MyReadingList>()
         .isInReadingList(book.title, book.author.first);
     return Container(
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               book.title,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: 25,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: writersRow(book.author),
               ),
             ),
@@ -46,9 +46,9 @@ class MyBottomSheet extends StatelessWidget {
               book.firstPublishYear.toString(),
               style: TextStyle(color: Colors.white.withOpacity(0.7)),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             GestureDetector(
-              child: Text(
+              child: const Text(
                 'Go to book',
                 style: TextStyle(
                   fontSize: 18,
@@ -67,15 +67,15 @@ class MyBottomSheet extends StatelessWidget {
                 Navigator.push(context, route);
               },
             ),
-            Divider(),
+            const Divider(),
             alreadyLogged && !isInReadingList
-                ? SizedBox(height: 2)
+                ? const SizedBox(height: 2)
                 : Container(),
             alreadyLogged && !isInReadingList
                 ? MaterialButton(
                     color: Colors.red,
                     minWidth: double.maxFinite,
-                    child: Text('Remove from my books'),
+                    child: const Text('Remove from my books'),
                     onPressed: () {
                       removeBook(context);
                       context
@@ -88,13 +88,13 @@ class MyBottomSheet extends StatelessWidget {
                   )
                 : Container(),
             !alreadyLogged && isInReadingList
-                ? SizedBox(height: 2)
+                ? const SizedBox(height: 2)
                 : Container(),
             !alreadyLogged && isInReadingList
                 ? MaterialButton(
                     color: myBlue,
                     minWidth: double.maxFinite,
-                    child: Text('Mark as read'),
+                    child: const Text('Mark as read'),
                     onPressed: () {
                       removeFromReadingList(context);
                       context
@@ -113,13 +113,13 @@ class MyBottomSheet extends StatelessWidget {
                   )
                 : Container(),
             !alreadyLogged && isInReadingList
-                ? SizedBox(height: 2)
+                ? const SizedBox(height: 2)
                 : Container(),
             !alreadyLogged && isInReadingList
                 ? MaterialButton(
                     color: Colors.red,
                     minWidth: double.maxFinite,
-                    child: Text('Remove from reading list'),
+                    child: const Text('Remove from reading list'),
                     onPressed: () {
                       removeFromReadingList(context);
                       context
@@ -146,7 +146,6 @@ class MyBottomSheet extends StatelessWidget {
       firestoreService.uploadBook(book, authService.getCurrentUser().uid);
       return done;
     } catch (e) {
-      print(e);
       return e.toString();
     }
   }
