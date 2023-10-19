@@ -38,7 +38,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 AuthTextFormField(
                   controller: oldPasswordController,
                   hintText: 'Old Password',
-                  prefixIcon: Icons.password_rounded,
                   validator: (val) => val!.isEmpty ? 'Enter password' : null,
                   obscureText: true,
                 ),
@@ -46,7 +45,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 AuthTextFormField(
                   controller: newPasswordController,
                   hintText: 'New Password',
-                  prefixIcon: Icons.password_rounded,
                   validator: (val) =>
                       val!.length < 6 ? 'Invalid Password' : null,
                   obscureText: true,
@@ -55,7 +53,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 AuthTextFormField(
                   controller: confirmPasswordController,
                   hintText: 'Confirm Password',
-                  prefixIcon: Icons.password_rounded,
                   validator: (val) => val != newPasswordController.text
                       ? 'Password does not match'
                       : null,

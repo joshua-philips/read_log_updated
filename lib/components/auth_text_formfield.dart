@@ -1,44 +1,44 @@
+import 'package:books_log_migration/configuration/constants.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final IconData prefixIcon;
   final FormFieldValidator<String> validator;
   final bool obscureText;
   final bool? autofocus;
+  final String? label;
   const AuthTextFormField(
       {Key? key,
       required this.controller,
       required this.hintText,
-      required this.prefixIcon,
       required this.validator,
       required this.obscureText,
-      this.autofocus})
+      this.autofocus,
+      this.label})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        prefixIcon: Icon(
-          prefixIcon,
-          color: Colors.green,
-          size: 20,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label ?? "",
+          style: Theme.of(context).textTheme.titleSmall,
         ),
-        hintText: hintText,
-        filled: true,
-        fillColor: Colors.white.withOpacity(0.2),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(5),
+        gapH8,
+        TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hintText,
+            filled: true,
+          ),
+          obscureText: obscureText,
+          validator: validator,
+          autofocus: autofocus ?? false,
         ),
-        contentPadding: const EdgeInsets.all(8),
-      ),
-      obscureText: obscureText,
-      validator: validator,
-      autofocus: autofocus ?? false,
+      ],
     );
   }
 }

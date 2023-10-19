@@ -30,7 +30,6 @@ class _EditNameDialogState extends State<EditNameDialog> {
               AuthTextFormField(
                 controller: nameController,
                 hintText: user.displayName!,
-                prefixIcon: Icons.person,
                 validator: (val) => val!.length < 3
                     ? 'Name must contain at least 3 characters'
                     : null,

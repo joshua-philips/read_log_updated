@@ -2,7 +2,7 @@ import 'package:books_log_migration/configuration/app_theme.dart';
 import 'package:books_log_migration/configuration/grid_settings.dart';
 import 'package:books_log_migration/models/my_books.dart';
 import 'package:books_log_migration/models/my_reading_list.dart';
-import 'package:books_log_migration/pages/authentication_pages/onboarding_page.dart';
+import 'package:books_log_migration/pages/authentication/onboarding_page.dart';
 import 'package:books_log_migration/pages/my_books_page.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:books_log_migration/services/firestore_service.dart';

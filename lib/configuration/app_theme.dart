@@ -39,6 +39,15 @@ class AppTheme {
           side: BorderSide(color: AppColors.bodyText),
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.primary2,
+          textStyle: TextStyle(color: AppColors.primary2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(defaultBorderRadius),
+          ),
+        ),
+      ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.inputfieldBg,
