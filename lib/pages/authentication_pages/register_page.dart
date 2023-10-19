@@ -5,6 +5,7 @@ import 'package:books_log_migration/components/auth_text_formfield.dart';
 import 'package:books_log_migration/components/blue_button.dart';
 import 'package:books_log_migration/components/dialogs_and_snackbar.dart';
 import 'package:books_log_migration/configuration/constants.dart';
+import 'package:books_log_migration/pages/authentication_pages/login_page.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:books_log_migration/services/storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -156,7 +157,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pop(context);
+                      Route route = MaterialPageRoute(
+                          builder: (context) => const LoginPage());
+                      Navigator.pushReplacement(context, route);
                     },
                   )
                 ],
