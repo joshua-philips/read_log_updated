@@ -6,8 +6,8 @@ import 'package:books_log_migration/configuration/constants.dart';
 import 'package:books_log_migration/models/book.dart';
 import 'package:books_log_migration/models/my_books.dart';
 import 'package:books_log_migration/models/my_reading_list.dart';
-import 'package:books_log_migration/pages/my_books_page.dart';
-import 'package:books_log_migration/pages/reading_list_page.dart';
+import 'package:books_log_migration/pages/home/my_books_page.dart';
+import 'package:books_log_migration/pages/home/reading_list_page.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:books_log_migration/services/firestore_service.dart';
 import 'package:expandable_text/expandable_text.dart';
@@ -70,21 +70,18 @@ class _BookDetailsState extends State<BookDetails> {
                             fontSize: 25, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(height: 20),
-                      Text(
+                      const Text(
                         'WRITTEN BY',
-                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
                       ),
                       writersColumn(),
                       const SizedBox(height: 10),
                       Text(
                         widget.book.firstPublishYear.toString(),
-                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
                       ),
                       Text(
                         widget.book.publisher.isNotEmpty
                             ? widget.book.publisher.first.toUpperCase()
                             : '',
-                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
                       ),
                     ],
                   ),
@@ -102,9 +99,8 @@ class _BookDetailsState extends State<BookDetails> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'SUMMARY',
-                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
                       ),
                       const SizedBox(height: 10),
                       ExpandableText(
@@ -112,7 +108,6 @@ class _BookDetailsState extends State<BookDetails> {
                         expandText: 'Read more',
                         collapseText: 'Show less',
                         maxLines: 5,
-                        linkColor: Colors.white.withOpacity(0.7),
                       )
                     ],
                   ),
@@ -173,9 +168,8 @@ class _BookDetailsState extends State<BookDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'NOTES & REVIEW',
-                  style: TextStyle(color: Colors.white.withOpacity(0.7)),
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
@@ -192,13 +186,12 @@ class _BookDetailsState extends State<BookDetails> {
             ),
           ),
           const Divider(),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
                 'Book data provided by Open Library',
-                style: TextStyle(color: Colors.white.withOpacity(0.5)),
               ),
             ],
           ),
@@ -373,21 +366,19 @@ class _BookDetailsState extends State<BookDetails> {
         writers.add(
           Text(
             widget.book.author[count],
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.white.withOpacity(0.7),
             ),
           ),
         );
       }
     } else {
-      writers.add(Text(
+      writers.add(const Text(
         'Unknown',
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
-          color: Colors.white.withOpacity(0.7),
         ),
       ));
     }

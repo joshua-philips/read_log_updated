@@ -41,24 +41,31 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               Image.asset("assets/logo_2.png", scale: 6),
               gapH16,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Create Account',
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          color: AppColors.text,
-                        ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Route route = MaterialPageRoute(
-                          builder: (context) => const LoginPage());
-                      Navigator.pushReplacement(context, route);
-                    },
-                    child: const Text("Already have an account?"),
-                  ),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Create Account',
+                      style:
+                          Theme.of(context).textTheme.headlineSmall!.copyWith(
+                                color: AppColors.text,
+                              ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Route route = MaterialPageRoute(
+                            builder: (context) => const LoginPage());
+                        Navigator.pushReplacement(context, route);
+                      },
+                      child: const Text(
+                        "Already have an account?",
+                      ),
+                    ),
+                  ],
+                ),
               ),
               gapH16,
               const Text('Enter your name, email and password to sign up.'),

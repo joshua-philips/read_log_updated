@@ -1,3 +1,4 @@
+import 'package:books_log_migration/configuration/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -5,11 +6,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 void showLoadingDialog(BuildContext context) {
   showDialog(
     context: context,
-    builder: (context) => const Dialog(
+    builder: (context) => Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
       child: SpinKitRing(
-        color: Colors.white,
+        color: AppColors.primary2,
       ),
     ),
   );

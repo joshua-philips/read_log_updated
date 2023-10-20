@@ -44,7 +44,6 @@ class MyBottomSheet extends StatelessWidget {
             ),
             Text(
               book.firstPublishYear.toString(),
-              style: TextStyle(color: Colors.white.withOpacity(0.7)),
             ),
             const SizedBox(height: 15),
             GestureDetector(

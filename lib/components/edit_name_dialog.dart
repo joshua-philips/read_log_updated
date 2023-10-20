@@ -1,5 +1,5 @@
 import 'package:books_log_migration/components/auth_text_formfield.dart';
-import 'package:books_log_migration/pages/profile_page.dart';
+import 'package:books_log_migration/pages/home/profile_page.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

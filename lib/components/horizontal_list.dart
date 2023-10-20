@@ -83,20 +83,12 @@ List<Widget> writersRow(List<dynamic> authorName) {
       writers.add(
         Text(
           authorName[count],
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.white.withOpacity(0.7),
-          ),
         ),
       );
       if (count != authorName.length - 1) {
         writers.add(
-          Text(
+          const Text(
             '/',
-            style: TextStyle(
-              fontSize: 19,
-              color: Colors.white.withOpacity(0.7),
-            ),
           ),
         );
       }

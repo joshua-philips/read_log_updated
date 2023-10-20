@@ -1,6 +1,6 @@
 import 'package:books_log_migration/pages/change_password_page.dart';
-import 'package:books_log_migration/pages/profile_page.dart';
-import 'package:books_log_migration/pages/reading_list_page.dart';
+import 'package:books_log_migration/pages/home/profile_page.dart';
+import 'package:books_log_migration/pages/home/reading_list_page.dart';
 import 'package:books_log_migration/pages/search_page.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

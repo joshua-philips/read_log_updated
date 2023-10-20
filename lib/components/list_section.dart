@@ -18,7 +18,6 @@ class ListSection extends StatelessWidget {
         children: [
           Text(
             sectionTitle,
-            style: TextStyle(color: Colors.white.withOpacity(0.7)),
           ),
           const SizedBox(height: 10),
           SizedBox(
