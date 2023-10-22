@@ -63,9 +63,9 @@ class MyBooksImage extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(defaultBorderRadius / 2),
               border: Border.all(
-                color: Colors.white70,
+                color: Colors.white,
               ),
-              color: AppColors.primary1,
+              color: AppColors.primary1.withOpacity(0.7),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(defaultBorderRadius / 2),
@@ -78,6 +78,10 @@ class MyBooksImage extends StatelessWidget {
                           padding: const EdgeInsets.all(3.0),
                           child: Text(
                             book.title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(color: Colors.white),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -91,6 +95,10 @@ class MyBooksImage extends StatelessWidget {
                         padding: const EdgeInsets.all(3.0),
                         child: Text(
                           book.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -153,42 +161,53 @@ class BookImageToDialog extends StatelessWidget {
         );
       },
       child: Container(
-        height: 150,
-        width: 100,
+        height: 200,
+        width: 130,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(2),
+          borderRadius: BorderRadius.circular(defaultBorderRadius / 2),
           border: Border.all(
-            color: Colors.white70,
+            color: Colors.white,
           ),
-          color: Colors.black54,
+          color: AppColors.primary1.withOpacity(0.7),
         ),
-        child: Image.network(book.coverImage,
-            fit: BoxFit.fill,
-            frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
-                child,
-            errorBuilder: (context, error, stackTrace) => Center(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(defaultBorderRadius / 2),
+          child: Image.network(book.coverImage,
+              fit: BoxFit.fill,
+              frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
+                  child,
+              errorBuilder: (context, error, stackTrace) => Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(defaultPadding / 1.5),
+                      child: Text(
+                        book.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.copyWith(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                }
+                return Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(defaultPadding / 1.5),
                     child: Text(
                       book.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium
+                          ?.copyWith(color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                ),
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Text(
-                    book.title,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              );
-            }),
+                );
+              }),
+        ),
       ),
     );
   }
@@ -208,9 +227,9 @@ class BookImage extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(defaultBorderRadius / 2),
         border: Border.all(
-          color: Colors.white70,
+          color: Colors.white,
         ),
-        color: AppColors.primary1,
+        color: AppColors.primary1.withOpacity(0.7),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(defaultBorderRadius / 2),
@@ -224,7 +243,7 @@ class BookImage extends StatelessWidget {
                     child: Text(
                       book.title,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                            color: Colors.white70,
+                            color: Colors.white,
                           ),
                       textAlign: TextAlign.center,
                     ),

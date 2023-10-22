@@ -71,4 +71,20 @@ class FirestoreService {
         .doc(documentId)
         .update({'review': review}).catchError((error) => log('ERROR: $error'));
   }
+
+  Future<String> getOnboardingImage() {
+    return _firestore
+        .collection("onboarding")
+        .doc("images")
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+        var onboardingField = data['onboarding'];
+        return onboardingField;
+      }
+      return "";
+    });
+  }
 }

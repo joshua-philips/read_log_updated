@@ -1,3 +1,4 @@
+import 'package:books_log_migration/configuration/constants.dart';
 import 'package:flutter/material.dart';
 
 /// Displays List<Widget> in horizontal ListView
@@ -12,12 +13,17 @@ class ListSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0, right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          gapH16,
           Text(
             sectionTitle,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 10),
           SizedBox(

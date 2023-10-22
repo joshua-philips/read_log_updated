@@ -25,11 +25,15 @@ class SearchContaner extends StatelessWidget {
           borderRadius:
               const BorderRadius.all(Radius.circular(defaultBorderRadius)),
         ),
-        child: const Row(
+        child: Row(
           children: [
-            FaIcon(FontAwesomeIcons.magnifyingGlass),
+            FaIcon(
+              FontAwesomeIcons.magnifyingGlass,
+              size: 18,
+              color: AppColors.bodyText,
+            ),
             gapW8,
-            Text('Type to find books..'),
+            const Text('Type to find books..'),
           ],
         ),
       ),

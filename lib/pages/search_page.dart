@@ -63,6 +63,7 @@ class _SearchPageState extends State<SearchPage> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(defaultPadding),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             TextField(
@@ -73,6 +74,7 @@ class _SearchPageState extends State<SearchPage> {
                   openLibrarySearch(searchController.text);
                 }
               },
+              textInputAction: TextInputAction.search,
               decoration: InputDecoration(
                 hintText: 'Search title, author',
                 border: InputBorder.none,
@@ -109,49 +111,50 @@ class _SearchPageState extends State<SearchPage> {
           ? const Center(
               child: Text('No Results'),
             )
-          : Scrollbar(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: results.docs.length,
-                itemBuilder: (context, index) => Card(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  elevation: 0,
-                  child: InkWell(
-                    onTap: () async {
-                      Route route = MaterialPageRoute(
-                        builder: (_) => FetchDetailsPage(
-                          openLibrarySearchDoc: results.docs[index],
-                        ),
-                      );
-                      Navigator.push(context, route);
-                    },
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                results.docs[index].title,
-                                style: Theme.of(context).textTheme.labelLarge,
+          : ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: results.docs.length,
+              itemBuilder: (context, index) => Card(
+                margin: const EdgeInsets.only(bottom: 8),
+                elevation: 0,
+                child: InkWell(
+                  onTap: () async {
+                    Route route = MaterialPageRoute(
+                      builder: (_) => FetchDetailsPage(
+                        openLibrarySearchDoc: results.docs[index],
+                      ),
+                    );
+                    Navigator.push(context, route);
+                  },
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              results.docs[index].title,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            SizedBox(
+                              height: 20,
+                              child: ListView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                children:
+                                    writersRow(results.docs[index].authorName),
                               ),
-                              SizedBox(
-                                height: 20,
-                                child: ListView(
-                                  physics: const BouncingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  children: writersRow(
-                                      results.docs[index].authorName),
-                                ),
-                              ),
-                              Text(results.docs[index].firstPublishYear
-                                  .toString()),
-                              Text(results.docs[index].publisher.first)
-                            ],
-                          ),
+                            ),
+                            Text(results.docs[index].firstPublishYear
+                                .toString()),
+                            Text(results.docs[index].publisher.isNotEmpty
+                                ? results.docs[index].publisher.first
+                                : "")
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

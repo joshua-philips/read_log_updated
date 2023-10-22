@@ -19,8 +19,7 @@ class _EditNameDialogState extends State<EditNameDialog> {
   Widget build(BuildContext context) {
     final User user = context.read<AuthService>().getCurrentUser();
     return AlertDialog(
-      contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-      title: const Text('Enter Name'),
+      title: const Text("Update name"),
       content: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Form(
@@ -29,6 +28,7 @@ class _EditNameDialogState extends State<EditNameDialog> {
             children: [
               AuthTextFormField(
                 controller: nameController,
+                label: "Enter name",
                 hintText: user.displayName!,
                 validator: (val) => val!.length < 3
                     ? 'Name must contain at least 3 characters'
@@ -42,22 +42,12 @@ class _EditNameDialogState extends State<EditNameDialog> {
       ),
       actions: [
         TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.green,
-            textStyle:
-                const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
           onPressed: () {
             Navigator.pop(context);
           },
           child: const Text('CANCEL'),
         ),
         TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.green,
-            textStyle:
-                const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
           onPressed: () async {
             if (formKey.currentState!.validate()) {
               Route route =

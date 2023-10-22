@@ -31,51 +31,42 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
         ),
         elevation: 0,
-        actions: [
-          TextButton.icon(
-            style: TextButton.styleFrom(),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => const EditNameDialog());
-            },
-            icon: const FaIcon(FontAwesomeIcons.pen),
-            label: const Text('Change Name'),
-          ),
-        ],
       ),
-      body: Column(
-        children: [
-          Container(
-            color: const Color(0xFF757575).withOpacity(0.08),
-            child: const ListTile(
-              title: Text('My Profile'),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-            child: ListTile(
-              onTap: () {
-                Route route = MaterialPageRoute(
-                    builder: (context) => ProfilePhotoPage(
-                          photoUrl: user.photoURL!,
-                        ));
-                Navigator.push(context, route);
-              },
-              minLeadingWidth: 60,
-              leading: CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.grey.shade300,
-                foregroundImage: NetworkImage(user.photoURL!),
-                onForegroundImageError: (exception, stackTrace) =>
-                    Text(user.displayName![0]),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Container(
+              color: const Color(0xFF757575).withOpacity(0.08),
+              child: const ListTile(
+                title: Text('My Profile'),
               ),
-              title: Text(user.displayName!),
-              trailing: const Icon(CupertinoIcons.forward),
             ),
-          ),
-          const Settings(),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+              child: ListTile(
+                onTap: () {
+                  Route route = MaterialPageRoute(
+                      builder: (context) => ProfilePhotoPage(
+                            photoUrl: user.photoURL!,
+                          ));
+                  Navigator.push(context, route);
+                },
+                minLeadingWidth: 60,
+                leading: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.grey.shade300,
+                  foregroundImage: NetworkImage(user.photoURL!),
+                  onForegroundImageError: (exception, stackTrace) =>
+                      Text(user.displayName![0]),
+                ),
+                title: Text(user.displayName!),
+                trailing: const Icon(CupertinoIcons.forward),
+              ),
+            ),
+            const Settings(),
+          ],
+        ),
       ),
     );
   }
@@ -99,16 +90,17 @@ class Settings extends StatelessWidget {
         ),
         gapH16,
         SettingListTile(
-          onTap: () {},
-          title: 'Theme',
-          trailingText: 'Light',
-          icon: FontAwesomeIcons.solidMoon,
+          onTap: () {
+            showDialog(
+                context: context, builder: (context) => const EditNameDialog());
+          },
+          title: 'Update Name',
+          icon: FontAwesomeIcons.passport,
         ),
         SettingListTile(
           onTap: () {
             Route route = MaterialPageRoute(
                 builder: (context) => const ChangePasswordPage());
-            Navigator.pop(context);
             Navigator.push(context, route);
           },
           title: 'Change Password',

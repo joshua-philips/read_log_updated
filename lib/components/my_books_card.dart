@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class MyBooksCard extends StatelessWidget {
   final Book book;
   final String documentId;
-  final hideImage;
+  final bool hideImage;
   const MyBooksCard({
     Key? key,
     required this.book,
@@ -35,8 +35,8 @@ class MyBooksCard extends StatelessWidget {
             context: context,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(5),
-                topRight: Radius.circular(5),
+                topLeft: Radius.circular(defaultBorderRadius),
+                topRight: Radius.circular(defaultBorderRadius),
               ),
             ),
             builder: (context) =>
@@ -64,7 +64,7 @@ class MyBooksCard extends StatelessWidget {
                     ),
                   ),
                   Text(book.firstPublishYear.toString()),
-                  Text(book.publisher.first)
+                  Text(book.publisher.isNotEmpty ? book.publisher.first : "")
                 ],
               ),
             ),

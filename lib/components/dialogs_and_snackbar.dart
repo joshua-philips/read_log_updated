@@ -1,4 +1,5 @@
 import 'package:books_log_migration/configuration/app_colors.dart';
+import 'package:books_log_migration/configuration/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -44,11 +45,12 @@ void showMessageDialog(BuildContext context, String title, String message) {
 void showMessageSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     duration: const Duration(seconds: 5),
+    behavior: SnackBarBehavior.floating,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(5),
+      borderRadius: BorderRadius.circular(defaultBorderRadius / 2),
     ),
+    backgroundColor: AppColors.primary1,
     content: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Flexible(
             child: Column(
@@ -56,8 +58,6 @@ void showMessageSnackBar(BuildContext context, String message) {
           children: [
             Text(
               message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             )
           ],
         )),

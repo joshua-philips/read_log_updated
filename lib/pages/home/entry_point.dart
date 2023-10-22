@@ -38,7 +38,7 @@ class _EntryPointState extends State<EntryPoint> {
         items: [
           BottomNavigationBarItem(
             icon: const FaIcon(
-              FontAwesomeIcons.house,
+              FontAwesomeIcons.book,
               color: _iconColor,
             ),
             activeIcon: FaIcon(

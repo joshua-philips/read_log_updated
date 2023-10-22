@@ -107,8 +107,8 @@ class _ReadingListPageState extends State<ReadingListPage> {
         physics: const NeverScrollableScrollPhysics(),
         crossAxisCount: 3,
         crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-        childAspectRatio: 0.65,
+        mainAxisSpacing: 3,
+        childAspectRatio: 0.55,
         children: snapshot.data!.docs.map((DocumentSnapshot document) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
           Book book = Book.fromJson(data);
