@@ -99,9 +99,7 @@ class _FetchDetailsPageState extends State<FetchDetailsPage> {
   Widget buildBody() {
     if (fetchOngoing && fetchCompleted == false) {
       return const Center(
-        child: CircularProgressIndicator(
-          color: Colors.green,
-        ),
+        child: CircularProgressIndicator(),
       );
     } else if (fetchOngoing == false && fetchCompleted) {
       Book newBook = Book(

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:books_log_migration/components/dialogs_and_snackbar.dart';
+import 'package:books_log_migration/configuration/app_colors.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:books_log_migration/services/storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,7 +35,10 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
             onPressed: () {
               selectImage();
             },
-            icon: const Icon(Icons.edit_rounded),
+            icon: Icon(
+              Icons.edit_rounded,
+              color: AppColors.inputfieldBg,
+            ),
           ),
         ],
       ),
@@ -61,7 +65,7 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
                 ),
           const Spacer(),
           MaterialButton(
-            color: Colors.green,
+            color: AppColors.inputfieldBg,
             onPressed: () async {
               if (photoSet) {
                 showLoadingDialog(context);

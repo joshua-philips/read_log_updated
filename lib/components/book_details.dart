@@ -2,16 +2,18 @@ import 'package:books_log_migration/components/book_image.dart';
 import 'package:books_log_migration/components/dialogs_and_snackbar.dart';
 import 'package:books_log_migration/components/horizontal_list.dart';
 import 'package:books_log_migration/components/list_section.dart';
+import 'package:books_log_migration/configuration/app_colors.dart';
 import 'package:books_log_migration/configuration/constants.dart';
 import 'package:books_log_migration/models/book.dart';
 import 'package:books_log_migration/models/my_books.dart';
 import 'package:books_log_migration/models/my_reading_list.dart';
-import 'package:books_log_migration/pages/my_books_page.dart';
-import 'package:books_log_migration/pages/reading_list_page.dart';
+import 'package:books_log_migration/pages/home/my_books_page.dart';
+import 'package:books_log_migration/pages/home/reading_list_page.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:books_log_migration/services/firestore_service.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 /// Complete view containing all the book details to display and buttons
@@ -53,129 +55,88 @@ class _BookDetailsState extends State<BookDetails> {
       child: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          const SizedBox(height: 12),
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 12),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.book.title,
-                        style: const TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'WRITTEN BY',
-                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
-                      ),
-                      writersColumn(),
-                      const SizedBox(height: 10),
-                      Text(
-                        widget.book.firstPublishYear.toString(),
-                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
-                      ),
-                      Text(
-                        widget.book.publisher.isNotEmpty
-                            ? widget.book.publisher.first.toUpperCase()
-                            : '',
-                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                BookImageToDialog(book: widget.book),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          widget.book.summary.isNotEmpty ? const Divider() : Container(),
+          gapH8,
+          topView(context, alreadyLogged, isInReadingList, widget.newBook),
+          gapH16,
           widget.book.summary.isNotEmpty
               ? Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'SUMMARY',
-                        style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                        'About',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontWeight: FontWeight.w600),
                       ),
-                      const SizedBox(height: 10),
+                      gapH8,
                       ExpandableText(
                         widget.book.summary,
                         expandText: 'Read more',
                         collapseText: 'Show less',
                         maxLines: 5,
-                        linkColor: Colors.white.withOpacity(0.7),
+                        linkColor: AppColors.text,
                       )
                     ],
                   ),
                 )
               : Container(),
-          widget.book.subject.isNotEmpty ? const Divider() : Container(),
           widget.book.subject.isNotEmpty
               ? ListSection(
-                  sectionTitle: 'SUBJECTS',
+                  sectionTitle: 'Subjects',
                   children: horizontalDetailList(widget.book.subject),
                 )
               : Container(),
-          widget.book.place.isNotEmpty ? const Divider() : Container(),
           widget.book.place.isNotEmpty
               ? ListSection(
-                  sectionTitle: 'PLACES',
+                  sectionTitle: 'Places',
                   children: horizontalDetailList(widget.book.place),
                 )
               : Container(),
-          widget.book.time.isNotEmpty ? const Divider() : Container(),
           widget.book.time.isNotEmpty
               ? ListSection(
-                  sectionTitle: 'TIME',
+                  sectionTitle: 'Time',
                   children: horizontalDetailList(widget.book.time),
                 )
               : Container(),
-          widget.book.person.isNotEmpty ? const Divider() : Container(),
           widget.book.person.isNotEmpty
               ? ListSection(
-                  sectionTitle: 'CHARACTERS',
+                  sectionTitle: 'Character',
                   children: horizontalDetailList(widget.book.person),
                 )
               : Container(),
-          widget.book.publisher.isNotEmpty ? const Divider() : Container(),
           widget.book.publisher.isNotEmpty
               ? ListSection(
-                  sectionTitle: 'PUBLISHERS',
+                  sectionTitle: 'Publishers',
                   children: horizontalDetailList(widget.book.publisher),
                 )
               : Container(),
-          widget.book.publishYear.isNotEmpty ? const Divider() : Container(),
           widget.book.publishYear.isNotEmpty
               ? ListSection(
-                  sectionTitle: 'YEARS PUBLISHED',
+                  sectionTitle: 'Years Published',
                   children: horizontalDetailListSorted(widget.book.publishYear),
                 )
               : Container(),
-          widget.book.links.isNotEmpty ? const Divider() : Container(),
           widget.book.links.isNotEmpty
               ? ListSection(
-                  sectionTitle: 'EXTERNAL LINKS',
+                  sectionTitle: 'External Links',
                   children: listOfLinks(widget.book.links, context),
                 )
               : Container(),
-          const Divider(),
           Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 12),
+            padding: const EdgeInsets.all(defaultPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'NOTES & REVIEW',
-                  style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                  'Notes',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
@@ -183,31 +144,17 @@ class _BookDetailsState extends State<BookDetails> {
                   controller: reviewController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white70),
-                    ),
                   ),
                 ),
               ],
             ),
           ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                'Book data provided by Open Library',
-                style: TextStyle(color: Colors.white.withOpacity(0.5)),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
+          gapH20,
           widget.newBook && !alreadyLogged && !isInReadingList
               ? Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12),
-                  child: MaterialButton(
-                    color: Colors.green,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: ElevatedButton(
                     child: const Text('Add to my books'),
                     onPressed: () {
                       addToBooks(context);
@@ -220,13 +167,13 @@ class _BookDetailsState extends State<BookDetails> {
                 )
               : Container(),
           !isInReadingList && widget.newBook && alreadyLogged
-              ? const SizedBox(height: 2)
+              ? gapH8
               : Container(),
           !isInReadingList && widget.newBook && alreadyLogged
               ? Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12),
-                  child: MaterialButton(
-                    color: Colors.green,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: ElevatedButton(
                     child: const Text('In my books. Go to My Books'),
                     onPressed: () {
                       Route route = MaterialPageRoute(
@@ -237,13 +184,13 @@ class _BookDetailsState extends State<BookDetails> {
                 )
               : Container(),
           !isInReadingList && !alreadyLogged && widget.newBook
-              ? const SizedBox(height: 2)
+              ? gapH8
               : Container(),
           !isInReadingList && !alreadyLogged && widget.newBook
               ? Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12),
-                  child: MaterialButton(
-                    color: Colors.orange.shade800,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: OutlinedButton(
                     child: const Text('Add to reading list'),
                     onPressed: () {
                       addToReadingList(context);
@@ -256,13 +203,13 @@ class _BookDetailsState extends State<BookDetails> {
                 )
               : Container(),
           isInReadingList && widget.newBook && !alreadyLogged
-              ? const SizedBox(height: 2)
+              ? gapH8
               : Container(),
           isInReadingList && widget.newBook && !alreadyLogged
               ? Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12),
-                  child: MaterialButton(
-                    color: Colors.orange.shade800,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: OutlinedButton(
                     child: const Text('In reading list. Go to Reading List'),
                     onPressed: () {
                       Route route = MaterialPageRoute(
@@ -275,9 +222,11 @@ class _BookDetailsState extends State<BookDetails> {
           !widget.newBook ? const SizedBox(height: 2) : Container(),
           !widget.newBook
               ? Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12),
-                  child: MaterialButton(
-                    color: Colors.green,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.success),
                     child: const Text('Update Notes & Review'),
                     onPressed: () {
                       if (reviewController.text.compareTo(widget.book.review) !=
@@ -294,14 +243,15 @@ class _BookDetailsState extends State<BookDetails> {
                   ),
                 )
               : Container(),
-          alreadyLogged && !widget.newBook
-              ? const SizedBox(height: 2)
-              : Container(),
+          alreadyLogged && !widget.newBook ? gapH8 : Container(),
           alreadyLogged && !widget.newBook
               ? Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12),
-                  child: MaterialButton(
-                    color: Colors.red,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.error,
+                    ),
                     child: const Text('Remove from my books'),
                     onPressed: () {
                       removeBook(context);
@@ -315,13 +265,13 @@ class _BookDetailsState extends State<BookDetails> {
                 )
               : Container(),
           !alreadyLogged && isInReadingList && !widget.newBook
-              ? const SizedBox(height: 2)
+              ? gapH8
               : Container(),
           !alreadyLogged && isInReadingList && !widget.newBook
               ? Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12),
-                  child: MaterialButton(
-                    color: myBlue,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: ElevatedButton(
                     child: const Text('Mark as read'),
                     onPressed: () {
                       removeFromReadingList(context);
@@ -340,13 +290,15 @@ class _BookDetailsState extends State<BookDetails> {
                 )
               : Container(),
           !alreadyLogged && isInReadingList && !widget.newBook
-              ? const SizedBox(height: 2)
+              ? gapH8
               : Container(),
           !alreadyLogged && isInReadingList && !widget.newBook
               ? Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12),
-                  child: MaterialButton(
-                    color: Colors.red,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.error),
                     child: const Text('Remove from reading list'),
                     onPressed: () {
                       removeFromReadingList(context);
@@ -365,7 +317,130 @@ class _BookDetailsState extends State<BookDetails> {
     );
   }
 
-  Column writersColumn() {
+  Widget topView(BuildContext context, bool alreadyLogged, bool isInReadingList,
+      bool newBook) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.book.title,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                writersColumn(context),
+                Text(
+                  widget.book.firstPublishYear.toString(),
+                ),
+                Text(
+                  widget.book.publisher.isNotEmpty
+                      ? widget.book.publisher.first
+                      : '',
+                ),
+                gapH16,
+                Row(
+                  children: [
+                    widget.newBook && !alreadyLogged && !isInReadingList
+                        ? MaterialButton(
+                            color: AppColors.primary2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(defaultBorderRadius),
+                            ),
+                            elevation: 0,
+                            onPressed: () {
+                              addToBooks(context);
+                              context.read<MyBooks>().addNewToMyBooks(
+                                  widget.book.title, widget.book.author.first);
+                              showMessageSnackBar(context,
+                                  widget.book.title + ' added to my books');
+                            },
+                            child: const Text("Add to books"),
+                          )
+                        : Container(),
+                    !isInReadingList && widget.newBook && alreadyLogged
+                        ? MaterialButton(
+                            color: AppColors.primary2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(defaultBorderRadius),
+                            ),
+                            elevation: 0,
+                            onPressed: () {
+                              Route route = MaterialPageRoute(
+                                  builder: (context) => const MyBooksPage());
+                              Navigator.push(context, route);
+                            },
+                            child: const Text("Go to books"),
+                          )
+                        : Container(),
+                    alreadyLogged && !widget.newBook
+                        ? MaterialButton(
+                            color: AppColors.primary2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(defaultBorderRadius),
+                            ),
+                            elevation: 0,
+                            onPressed: () {
+                              removeBook(context);
+                              context.read<MyBooks>().removeFromMyBooks(
+                                  widget.book.title, widget.book.author.first);
+                              showMessageSnackBar(context,
+                                  widget.book.title + ' removed from my books');
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Remove book"),
+                          )
+                        : Container(),
+                    gapW4,
+                    !isInReadingList && !alreadyLogged && widget.newBook
+                        ? IconButton(
+                            onPressed: () {
+                              addToReadingList(context);
+                              context.read<MyReadingList>().addNewToReadingList(
+                                  widget.book.title, widget.book.author.first);
+                              showMessageSnackBar(context,
+                                  widget.book.title + ' added to reading list');
+                            },
+                            icon: FaIcon(
+                              FontAwesomeIcons.bookmark,
+                              color: AppColors.primary2,
+                            ),
+                          )
+                        : Container(),
+                    isInReadingList && widget.newBook && !alreadyLogged
+                        ? IconButton(
+                            onPressed: () {
+                              Route route = MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ReadingListPage());
+                              Navigator.push(context, route);
+                            },
+                            icon: FaIcon(
+                              FontAwesomeIcons.solidBookmark,
+                              color: AppColors.primary2,
+                            ),
+                          )
+                        : Container(),
+                  ],
+                )
+              ],
+            ),
+          ),
+          gapW8,
+          BookImageToDialog(book: widget.book),
+        ],
+      ),
+    );
+  }
+
+  Column writersColumn(BuildContext context) {
     List<Widget> writers = [];
 
     if (widget.book.author.isNotEmpty) {
@@ -373,22 +448,20 @@ class _BookDetailsState extends State<BookDetails> {
         writers.add(
           Text(
             widget.book.author[count],
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.white.withOpacity(0.7),
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: AppColors.text),
           ),
         );
       }
     } else {
       writers.add(Text(
         'Unknown',
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Colors.white.withOpacity(0.7),
-        ),
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge
+            ?.copyWith(color: AppColors.text),
       ));
     }
 

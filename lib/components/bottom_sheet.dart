@@ -1,5 +1,6 @@
 import 'package:books_log_migration/components/dialogs_and_snackbar.dart';
 import 'package:books_log_migration/components/horizontal_list.dart';
+import 'package:books_log_migration/configuration/app_colors.dart';
 import 'package:books_log_migration/configuration/constants.dart';
 import 'package:books_log_migration/models/book.dart';
 import 'package:books_log_migration/models/my_books.dart';
@@ -24,7 +25,7 @@ class MyBottomSheet extends StatelessWidget {
         .watch<MyReadingList>()
         .isInReadingList(book.title, book.author.first);
     return Container(
-      margin: const EdgeInsets.all(12),
+      margin: const EdgeInsets.all(defaultPadding),
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -32,10 +33,10 @@ class MyBottomSheet extends StatelessWidget {
           children: [
             Text(
               book.title,
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             SizedBox(
-              height: 25,
+              height: 18,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
@@ -44,17 +45,15 @@ class MyBottomSheet extends StatelessWidget {
             ),
             Text(
               book.firstPublishYear.toString(),
-              style: TextStyle(color: Colors.white.withOpacity(0.7)),
             ),
-            const SizedBox(height: 15),
+            Text(book.publisher.first),
+            gapH20,
             GestureDetector(
-              child: const Text(
-                'Go to book',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Text(
+                'See details',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: AppColors.primary2,
+                    ),
               ),
               onTap: () {
                 Route route = MaterialPageRoute(
@@ -72,9 +71,11 @@ class MyBottomSheet extends StatelessWidget {
                 ? const SizedBox(height: 2)
                 : Container(),
             alreadyLogged && !isInReadingList
-                ? MaterialButton(
-                    color: Colors.red,
-                    minWidth: double.maxFinite,
+                ? OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: AppColors.error),
+                      foregroundColor: AppColors.error,
+                    ),
                     child: const Text('Remove from my books'),
                     onPressed: () {
                       removeBook(context);
@@ -91,9 +92,7 @@ class MyBottomSheet extends StatelessWidget {
                 ? const SizedBox(height: 2)
                 : Container(),
             !alreadyLogged && isInReadingList
-                ? MaterialButton(
-                    color: myBlue,
-                    minWidth: double.maxFinite,
+                ? ElevatedButton(
                     child: const Text('Mark as read'),
                     onPressed: () {
                       removeFromReadingList(context);
@@ -112,13 +111,13 @@ class MyBottomSheet extends StatelessWidget {
                     },
                   )
                 : Container(),
+            !alreadyLogged && isInReadingList ? gapH16 : Container(),
             !alreadyLogged && isInReadingList
-                ? const SizedBox(height: 2)
-                : Container(),
-            !alreadyLogged && isInReadingList
-                ? MaterialButton(
-                    color: Colors.red,
-                    minWidth: double.maxFinite,
+                ? OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: AppColors.error),
+                      foregroundColor: AppColors.error,
+                    ),
                     child: const Text('Remove from reading list'),
                     onPressed: () {
                       removeFromReadingList(context);

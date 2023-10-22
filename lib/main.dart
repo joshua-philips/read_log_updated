@@ -1,14 +1,15 @@
-import 'package:books_log_migration/configuration/constants.dart';
+import 'package:books_log_migration/configuration/app_theme.dart';
 import 'package:books_log_migration/configuration/grid_settings.dart';
 import 'package:books_log_migration/models/my_books.dart';
 import 'package:books_log_migration/models/my_reading_list.dart';
-import 'package:books_log_migration/pages/authentication_pages/login_page.dart';
-import 'package:books_log_migration/pages/my_books_page.dart';
+import 'package:books_log_migration/pages/authentication/onboarding_page.dart';
+import 'package:books_log_migration/pages/home/entry_point.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:books_log_migration/services/firestore_service.dart';
 import 'package:books_log_migration/services/storage_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
@@ -79,20 +80,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) => MaterialApp(
         title: 'Read Log',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark().copyWith(
-          primaryColor: Colors.grey[900],
-          scaffoldBackgroundColor: blackBackground,
-          indicatorColor: Colors.green,
-          textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: Colors.green,
-          ),
-          pageTransitionsTheme: const PageTransitionsTheme(
-            builders: {
-              TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-            },
-          ),
-          dividerTheme: const DividerThemeData(thickness: 1.5),
-        ),
+        theme: AppTheme.lightTheme(context),
         home: const HomeController(),
       ),
     );
@@ -115,14 +103,21 @@ class _HomeControllerState extends State<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarIconBrightness: Brightness.dark),
+    );
     return StreamBuilder(
       stream: context.read<AuthService>().onAuthStateChanged,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
-            return const MyBooksPage();
+            return const EntryPoint();
           } else {
-            return const LoginPage();
+            return const OnboardingPage();
           }
         }
         return const LoadingScreen();
@@ -140,7 +135,6 @@ class LoadingScreen extends StatelessWidget {
       body: Center(
         child: Text(
           'Loading...',
-          style: TextStyle(color: Colors.white70),
         ),
       ),
     );

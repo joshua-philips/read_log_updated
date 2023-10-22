@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:books_log_migration/components/horizontal_list.dart';
-import 'package:books_log_migration/components/my_drawer.dart';
+import 'package:books_log_migration/components/section_tile.dart';
+import 'package:books_log_migration/configuration/app_colors.dart';
+import 'package:books_log_migration/configuration/constants.dart';
 import 'package:books_log_migration/models/openlibrary_search.dart';
 import 'package:books_log_migration/pages/fetch_details_page.dart';
 import 'package:flutter/material.dart';
@@ -51,89 +53,72 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const MyDrawer(currentPage: CurrentPage.SEARCH),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Container(
-          padding: const EdgeInsets.only(left: 8, right: 5),
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.white.withOpacity(0.2),
-          ),
-          child: TextField(
-            controller: searchController,
-            autofocus: true,
-            onSubmitted: (text) {
-              if (searchController.text.isNotEmpty) {
-                openLibrarySearch(searchController.text);
-              }
-            },
-            decoration: InputDecoration(
-              icon: Icon(
-                Icons.search,
-                color: Theme.of(context).iconTheme.color?.withOpacity(0.7),
+        title: Text(
+          'Search',
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                color: AppColors.text,
               ),
-              hintText: 'Search title, author',
-              border: InputBorder.none,
-              suffixIcon: IconButton(
-                onPressed: () {
-                  searchController.clear();
-                },
-                icon: Icon(
-                  Icons.close,
-                  color: Theme.of(context).iconTheme.color?.withOpacity(0.7),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(defaultPadding),
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            TextField(
+              controller: searchController,
+              autofocus: true,
+              onSubmitted: (text) {
+                if (searchController.text.isNotEmpty) {
+                  openLibrarySearch(searchController.text);
+                }
+              },
+              textInputAction: TextInputAction.search,
+              decoration: InputDecoration(
+                hintText: 'Search title, author',
+                border: InputBorder.none,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    searchController.clear();
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: Theme.of(context).iconTheme.color?.withOpacity(0.7),
+                  ),
                 ),
               ),
             ),
-          ),
+            SectionListTile(
+              title: "Search results",
+              press: () {},
+              trailingText: "",
+            ),
+            buildSearchBody(),
+          ],
         ),
       ),
-      body: buildSearchBody(),
     );
   }
 
   Widget buildSearchBody() {
     if (searchOngoing && searchCompleted == false) {
       return const Center(
-        child: CircularProgressIndicator(
-          color: Colors.green,
-        ),
+        child: CircularProgressIndicator(),
       );
     } else if (searchOngoing == false && searchCompleted) {
       return results.numFound <= 0
           ? const Center(
               child: Text('No Results'),
             )
-          : Scrollbar(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: results.docs.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  child: Card(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 8),
-                      title: Text(
-                        results.docs[index].title,
-                        style: const TextStyle(fontSize: 25),
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: SizedBox(
-                          height: 25,
-                          child: ListView(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            children:
-                                writersRow(results.docs[index].authorName),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+          : ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: results.docs.length,
+              itemBuilder: (context, index) => Card(
+                margin: const EdgeInsets.only(bottom: 8),
+                elevation: 0,
+                child: InkWell(
                   onTap: () async {
                     Route route = MaterialPageRoute(
                       builder: (_) => FetchDetailsPage(
@@ -142,6 +127,35 @@ class _SearchPageState extends State<SearchPage> {
                     );
                     Navigator.push(context, route);
                   },
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              results.docs[index].title,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            SizedBox(
+                              height: 20,
+                              child: ListView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                children:
+                                    writersRow(results.docs[index].authorName),
+                              ),
+                            ),
+                            Text(results.docs[index].firstPublishYear
+                                .toString()),
+                            Text(results.docs[index].publisher.isNotEmpty
+                                ? results.docs[index].publisher.first
+                                : "")
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

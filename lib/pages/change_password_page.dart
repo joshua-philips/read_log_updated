@@ -1,6 +1,6 @@
 import 'package:books_log_migration/components/auth_text_formfield.dart';
-import 'package:books_log_migration/components/blue_button.dart';
 import 'package:books_log_migration/components/dialogs_and_snackbar.dart';
+import 'package:books_log_migration/configuration/app_colors.dart';
 import 'package:books_log_migration/configuration/constants.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,12 +24,17 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Change Password'),
+        title: Text(
+          'Change Password',
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                color: AppColors.text,
+              ),
+        ),
         elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(defaultPadding),
           child: Form(
             key: formKey,
             child: Column(
@@ -37,46 +42,44 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               children: [
                 AuthTextFormField(
                   controller: oldPasswordController,
+                  label: "Enter old password",
                   hintText: 'Old Password',
-                  prefixIcon: Icons.password_rounded,
                   validator: (val) => val!.isEmpty ? 'Enter password' : null,
                   obscureText: true,
                 ),
-                const SizedBox(height: 20),
+                gapH16,
                 AuthTextFormField(
                   controller: newPasswordController,
+                  label: "Enter new password",
                   hintText: 'New Password',
-                  prefixIcon: Icons.password_rounded,
                   validator: (val) =>
                       val!.length < 6 ? 'Invalid Password' : null,
                   obscureText: true,
                 ),
-                const SizedBox(height: 20),
+                gapH16,
                 AuthTextFormField(
                   controller: confirmPasswordController,
+                  label: "Confirm new password",
                   hintText: 'Confirm Password',
-                  prefixIcon: Icons.password_rounded,
                   validator: (val) => val != newPasswordController.text
                       ? 'Password does not match'
                       : null,
                   obscureText: true,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: BlueButton(
-                    buttonText: 'Update Password',
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        String returnedString = await updatePassword(context);
-                        if (returnedString == done) {
-                          showMessageSnackBar(context, 'Password updated');
-                          Navigator.pop(context);
-                        } else {
-                          showMessageDialog(context, 'Error', returnedString);
-                        }
+                gapH24,
+                ElevatedButton(
+                  child: const Text('Update Password'),
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      String returnedString = await updatePassword(context);
+                      if (returnedString == done) {
+                        showMessageSnackBar(context, 'Password updated');
+                        Navigator.pop(context);
+                      } else {
+                        showMessageDialog(context, 'Error', returnedString);
                       }
-                    },
-                  ),
+                    }
+                  },
                 ),
               ],
             ),
