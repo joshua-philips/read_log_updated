@@ -85,7 +85,6 @@ List<Widget> writersRow(List<dynamic> authorName) {
     writers.add(
       const Text(
         'Unknown',
-        style: TextStyle(fontSize: 20),
       ),
     );
   }

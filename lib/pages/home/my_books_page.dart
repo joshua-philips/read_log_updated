@@ -22,9 +22,17 @@ class MyBooksPage extends StatefulWidget {
 }
 
 class _MyBooksPageState extends State<MyBooksPage> {
+  Stream<QuerySnapshot<Object?>>? booksStream;
+
+  @override
+  void initState() {
+    final User user = context.read<AuthService>().getCurrentUser();
+    booksStream = context.read<FirestoreService>().myBooksStream(user.uid);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final User user = context.read<AuthService>().getCurrentUser();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -59,8 +67,7 @@ class _MyBooksPageState extends State<MyBooksPage> {
               const SearchContaner(),
               gapH16,
               StreamBuilder<QuerySnapshot>(
-                stream:
-                    context.read<FirestoreService>().myBooksStream(user.uid),
+                stream: booksStream,
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
@@ -142,14 +149,8 @@ class NoBooks extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            'assets/logo.png',
-            scale: 3,
-            filterQuality: FilterQuality.none,
-          ),
-          const SizedBox(height: 15),
           Text(
-            'No books added',
+            'Add a new book to your collection by searching',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],

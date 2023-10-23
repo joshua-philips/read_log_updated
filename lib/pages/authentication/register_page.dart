@@ -22,6 +22,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  bool isLoading = false;
   final formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -139,22 +140,30 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: const Text(
                   'Register',
                 ),
-                onPressed: () async {
-                  if (formKey.currentState!.validate() && photoSet) {
-                    showLoadingDialog(context);
-                    String returnedString = await register(context);
-                    if (returnedString != done) {
-                      Navigator.pop(context);
-                      showMessageDialog(context, 'Error', returnedString);
-                    } else {
-                      Navigator.popUntil(
-                          context, (route) => !Navigator.canPop(context));
-                    }
-                  } else if (photoSet == false) {
-                    showMessageDialog(context, 'No profile picture',
-                        'Please select a profile photo');
-                  }
-                },
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        if (formKey.currentState!.validate() && photoSet) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          showLoadingDialog(context);
+                          String returnedString = await register(context);
+                          setState(() {
+                            isLoading = false;
+                          });
+                          if (returnedString != done) {
+                            Navigator.pop(context);
+                            showMessageDialog(context, 'Error', returnedString);
+                          } else {
+                            Navigator.popUntil(
+                                context, (route) => !Navigator.canPop(context));
+                          }
+                        } else if (photoSet == false) {
+                          showMessageDialog(context, 'No profile picture',
+                              'Please select a profile photo');
+                        }
+                      },
               ),
               gapH24,
             ],

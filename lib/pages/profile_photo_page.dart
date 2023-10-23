@@ -72,13 +72,12 @@ class _ProfilePhotoPageState extends State<ProfilePhotoPage> {
                 try {
                   await uploadImage(context);
                   Navigator.pop(context);
-                  Navigator.pop(context);
+                  showMessageSnackBar(context, 'Photo changed successfully');
                 } on Exception catch (e) {
                   Navigator.pop(context);
                   showMessageDialog(
                       context, 'Change failed', 'Error: ' + e.toString());
                 }
-                Navigator.pop(context);
               } else {
                 showMessageSnackBar(context, 'Photo not changed');
               }

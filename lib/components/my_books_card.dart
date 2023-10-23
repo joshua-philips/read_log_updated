@@ -63,7 +63,9 @@ class MyBooksCard extends StatelessWidget {
                       children: writersRow(book.author),
                     ),
                   ),
-                  Text(book.firstPublishYear.toString()),
+                  book.firstPublishYear > 0
+                      ? Text(book.firstPublishYear.toString())
+                      : Container(),
                   Text(book.publisher.isNotEmpty ? book.publisher.first : "")
                 ],
               ),

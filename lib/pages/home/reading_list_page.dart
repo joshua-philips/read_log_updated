@@ -23,9 +23,18 @@ class ReadingListPage extends StatefulWidget {
 }
 
 class _ReadingListPageState extends State<ReadingListPage> {
+  Stream<QuerySnapshot<Object?>>? readingListStream;
+
+  @override
+  void initState() {
+    final User user = context.read<AuthService>().getCurrentUser();
+    readingListStream =
+        context.read<FirestoreService>().readingListStream(user.uid);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final User user = context.read<AuthService>().getCurrentUser();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -60,9 +69,7 @@ class _ReadingListPageState extends State<ReadingListPage> {
               const SearchContaner(),
               gapH16,
               StreamBuilder<QuerySnapshot>(
-                stream: context
-                    .read<FirestoreService>()
-                    .readingListStream(user.uid),
+                stream: readingListStream,
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {

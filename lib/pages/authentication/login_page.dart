@@ -9,14 +9,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isLoading = false;
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -75,21 +82,29 @@ class LoginPage extends StatelessWidget {
                     ),
                     gapH24,
                     ElevatedButton(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          String returnedString = await login(
-                              emailController.text,
-                              passwordController.text,
-                              context);
-                          if (returnedString != done) {
-                            showMessageDialog(
-                                context, 'Login Error', returnedString);
-                          } else {
-                            Navigator.popUntil(
-                                context, (route) => !Navigator.canPop(context));
-                          }
-                        }
-                      },
+                      onPressed: isLoading
+                          ? null
+                          : () async {
+                              if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                String returnedString = await login(
+                                    emailController.text,
+                                    passwordController.text,
+                                    context);
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                if (returnedString != done) {
+                                  showMessageDialog(
+                                      context, 'Login error', returnedString);
+                                } else {
+                                  Navigator.popUntil(context,
+                                      (route) => !Navigator.canPop(context));
+                                }
+                              }
+                            },
                       child: const Text('Login'),
                     ),
                   ],

@@ -61,41 +61,44 @@ class _SearchPageState extends State<SearchPage> {
               ),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(defaultPadding),
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            TextField(
-              controller: searchController,
-              autofocus: true,
-              onSubmitted: (text) {
-                if (searchController.text.isNotEmpty) {
-                  openLibrarySearch(searchController.text);
-                }
-              },
-              textInputAction: TextInputAction.search,
-              decoration: InputDecoration(
-                hintText: 'Search title, author',
-                border: InputBorder.none,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    searchController.clear();
-                  },
-                  icon: Icon(
-                    Icons.close,
-                    color: Theme.of(context).iconTheme.color?.withOpacity(0.7),
+      body: Scrollbar(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(defaultPadding),
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              TextField(
+                controller: searchController,
+                autofocus: true,
+                onSubmitted: (text) {
+                  if (searchController.text.isNotEmpty) {
+                    openLibrarySearch(searchController.text);
+                  }
+                },
+                textInputAction: TextInputAction.search,
+                decoration: InputDecoration(
+                  hintText: 'Search title, author',
+                  border: InputBorder.none,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      searchController.clear();
+                    },
+                    icon: Icon(
+                      Icons.close,
+                      color:
+                          Theme.of(context).iconTheme.color?.withOpacity(0.7),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SectionListTile(
-              title: "Search results",
-              press: () {},
-              trailingText: "",
-            ),
-            buildSearchBody(),
-          ],
+              SectionListTile(
+                title: "Search results",
+                press: () {},
+                trailingText: "",
+              ),
+              buildSearchBody(),
+            ],
+          ),
         ),
       ),
     );
@@ -146,8 +149,10 @@ class _SearchPageState extends State<SearchPage> {
                                     writersRow(results.docs[index].authorName),
                               ),
                             ),
-                            Text(results.docs[index].firstPublishYear
-                                .toString()),
+                            Text(results.docs[index].firstPublishYear > 0
+                                ? results.docs[index].firstPublishYear
+                                    .toString()
+                                : ""),
                             Text(results.docs[index].publisher.isNotEmpty
                                 ? results.docs[index].publisher.first
                                 : "")

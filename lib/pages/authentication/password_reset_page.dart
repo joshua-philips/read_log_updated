@@ -7,13 +7,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PasswordResetPage extends StatelessWidget {
+class PasswordResetPage extends StatefulWidget {
   const PasswordResetPage({Key? key}) : super(key: key);
 
   @override
+  State<PasswordResetPage> createState() => _PasswordResetPageState();
+}
+
+class _PasswordResetPageState extends State<PasswordResetPage> {
+  bool isLoading = false;
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-    final TextEditingController emailController = TextEditingController();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -55,19 +61,27 @@ class PasswordResetPage extends StatelessWidget {
               gapH24,
               ElevatedButton(
                 child: const Text('Send reset email'),
-                onPressed: () async {
-                  if (formKey.currentState!.validate()) {
-                    String returnedString =
-                        await sendResetEmail(emailController.text, context);
-                    if (returnedString != done) {
-                      showMessageDialog(context, 'Error', returnedString);
-                    } else {
-                      showMessageSnackBar(context,
-                          'Password reset email sent. Check your inbox.');
-                      Navigator.pop(context);
-                    }
-                  }
-                },
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        if (formKey.currentState!.validate()) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          String returnedString = await sendResetEmail(
+                              emailController.text, context);
+                          setState(() {
+                            isLoading = false;
+                          });
+                          if (returnedString != done) {
+                            showMessageDialog(context, 'Error', returnedString);
+                          } else {
+                            showMessageSnackBar(context,
+                                'Password reset email sent. Check your inbox.');
+                            Navigator.pop(context);
+                          }
+                        }
+                      },
               ),
               gapH8,
               OutlinedButton(

@@ -60,9 +60,11 @@ class OpenLibraryWorks {
           })
         : newAuthors = [];
     return OpenLibraryWorks(
-      description: json['description'].length < 4
-          ? json['description']['value'] ?? ''
-          : json['description'] ?? '',
+      description: json['description'] != null
+          ? json['description'].length < 4
+              ? json['description']['value'] ?? ''
+              : json['description'] ?? ''
+          : '',
       title: json['title'] ?? '',
       covers: json['covers'] ?? [],
       subjectPlaces: json['subject_places'] ?? [],

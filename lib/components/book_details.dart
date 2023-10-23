@@ -44,12 +44,11 @@ class _BookDetailsState extends State<BookDetails> {
 
   @override
   Widget build(BuildContext context) {
-    bool alreadyLogged = context
-        .watch<MyBooks>()
-        .isInMyBooks(widget.book.title, widget.book.author.first);
-    bool isInReadingList = context
-        .watch<MyReadingList>()
-        .isInReadingList(widget.book.title, widget.book.author.first);
+    bool alreadyLogged = context.watch<MyBooks>().isInMyBooks(widget.book.title,
+        widget.book.author.isNotEmpty ? widget.book.author.first : "");
+    bool isInReadingList = context.watch<MyReadingList>().isInReadingList(
+        widget.book.title,
+        widget.book.author.isNotEmpty ? widget.book.author.first : "");
     return Scrollbar(
       thickness: 2,
       child: ListView(
@@ -142,7 +141,9 @@ class _BookDetailsState extends State<BookDetails> {
                 TextFormField(
                   maxLines: 4,
                   controller: reviewController,
+                  scrollPhysics: const BouncingScrollPhysics(),
                   decoration: const InputDecoration(
+                    hintText: "Enter related notes",
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -159,7 +160,10 @@ class _BookDetailsState extends State<BookDetails> {
                     onPressed: () {
                       addToBooks(context);
                       context.read<MyBooks>().addNewToMyBooks(
-                          widget.book.title, widget.book.author.first);
+                          widget.book.title,
+                          widget.book.author.isNotEmpty
+                              ? widget.book.author.first
+                              : "");
                       showMessageSnackBar(
                           context, widget.book.title + ' added to my books');
                     },
@@ -195,7 +199,10 @@ class _BookDetailsState extends State<BookDetails> {
                     onPressed: () {
                       addToReadingList(context);
                       context.read<MyReadingList>().addNewToReadingList(
-                          widget.book.title, widget.book.author.first);
+                          widget.book.title,
+                          widget.book.author.isNotEmpty
+                              ? widget.book.author.first
+                              : "");
                       showMessageSnackBar(context,
                           widget.book.title + ' added to reading list');
                     },
@@ -256,7 +263,10 @@ class _BookDetailsState extends State<BookDetails> {
                     onPressed: () {
                       removeBook(context);
                       context.read<MyBooks>().removeFromMyBooks(
-                          widget.book.title, widget.book.author.first);
+                          widget.book.title,
+                          widget.book.author.isNotEmpty
+                              ? widget.book.author.first
+                              : "");
                       showMessageSnackBar(context,
                           widget.book.title + ' removed from my books');
                       Navigator.pop(context);
@@ -276,10 +286,16 @@ class _BookDetailsState extends State<BookDetails> {
                     onPressed: () {
                       removeFromReadingList(context);
                       context.read<MyReadingList>().removeFromReadingList(
-                          widget.book.title, widget.book.author.first);
+                          widget.book.title,
+                          widget.book.author.isNotEmpty
+                              ? widget.book.author.first
+                              : "");
                       addToBooks(context);
                       context.read<MyBooks>().addNewToMyBooks(
-                          widget.book.title, widget.book.author.first);
+                          widget.book.title,
+                          widget.book.author.isNotEmpty
+                              ? widget.book.author.first
+                              : "");
                       showMessageSnackBar(
                           context,
                           widget.book.title +
@@ -303,7 +319,10 @@ class _BookDetailsState extends State<BookDetails> {
                     onPressed: () {
                       removeFromReadingList(context);
                       context.read<MyReadingList>().removeFromReadingList(
-                          widget.book.title, widget.book.author.first);
+                          widget.book.title,
+                          widget.book.author.isNotEmpty
+                              ? widget.book.author.first
+                              : "");
                       showMessageSnackBar(context,
                           widget.book.title + ' removed from reading list');
                       Navigator.pop(context);
@@ -334,9 +353,11 @@ class _BookDetailsState extends State<BookDetails> {
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 writersColumn(context),
-                Text(
-                  widget.book.firstPublishYear.toString(),
-                ),
+                widget.book.firstPublishYear > 0
+                    ? Text(
+                        widget.book.firstPublishYear.toString(),
+                      )
+                    : Container(),
                 Text(
                   widget.book.publisher.isNotEmpty
                       ? widget.book.publisher.first
@@ -356,7 +377,10 @@ class _BookDetailsState extends State<BookDetails> {
                             onPressed: () {
                               addToBooks(context);
                               context.read<MyBooks>().addNewToMyBooks(
-                                  widget.book.title, widget.book.author.first);
+                                  widget.book.title,
+                                  widget.book.author.isNotEmpty
+                                      ? widget.book.author.first
+                                      : "");
                               showMessageSnackBar(context,
                                   widget.book.title + ' added to my books');
                             },
@@ -390,7 +414,10 @@ class _BookDetailsState extends State<BookDetails> {
                             onPressed: () {
                               removeBook(context);
                               context.read<MyBooks>().removeFromMyBooks(
-                                  widget.book.title, widget.book.author.first);
+                                  widget.book.title,
+                                  widget.book.author.isNotEmpty
+                                      ? widget.book.author.first
+                                      : "");
                               showMessageSnackBar(context,
                                   widget.book.title + ' removed from my books');
                               Navigator.pop(context);
@@ -404,7 +431,10 @@ class _BookDetailsState extends State<BookDetails> {
                             onPressed: () {
                               addToReadingList(context);
                               context.read<MyReadingList>().addNewToReadingList(
-                                  widget.book.title, widget.book.author.first);
+                                  widget.book.title,
+                                  widget.book.author.isNotEmpty
+                                      ? widget.book.author.first
+                                      : "");
                               showMessageSnackBar(context,
                                   widget.book.title + ' added to reading list');
                             },
@@ -415,14 +445,14 @@ class _BookDetailsState extends State<BookDetails> {
                           )
                         : Container(),
                     isInReadingList && widget.newBook && !alreadyLogged
-                        ? IconButton(
-                            onPressed: () {
+                        ? GestureDetector(
+                            onTap: () {
                               Route route = MaterialPageRoute(
                                   builder: (context) =>
                                       const ReadingListPage());
                               Navigator.push(context, route);
                             },
-                            icon: FaIcon(
+                            child: FaIcon(
                               FontAwesomeIcons.solidBookmark,
                               color: AppColors.primary2,
                             ),

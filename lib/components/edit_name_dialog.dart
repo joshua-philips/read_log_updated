@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:books_log_migration/components/auth_text_formfield.dart';
-import 'package:books_log_migration/pages/home/profile_page.dart';
+import 'package:books_log_migration/components/dialogs_and_snackbar.dart';
 import 'package:books_log_migration/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,19 +47,24 @@ class _EditNameDialogState extends State<EditNameDialog> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('CANCEL'),
+          child: const Text('Cancel'),
         ),
         TextButton(
           onPressed: () async {
             if (formKey.currentState!.validate()) {
-              Route route =
-                  MaterialPageRoute(builder: (context) => const ProfilePage());
-              await user.updateDisplayName(nameController.text);
-              Navigator.pop(context);
-              Navigator.pushReplacement(context, route);
+              try {
+                await user.updateDisplayName(nameController.text);
+                Navigator.pop(context);
+                showMessageSnackBar(
+                    context, "Display name updated successfully");
+              } on Exception catch (e) {
+                log(e.toString());
+                Navigator.pop(context);
+                showMessageSnackBar(context, "Could not update display name");
+              }
             }
           },
-          child: const Text('SAVE'),
+          child: const Text('Save'),
         ),
       ],
     );
