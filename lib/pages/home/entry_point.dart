@@ -38,33 +38,33 @@ class _EntryPointState extends State<EntryPoint> {
         items: [
           BottomNavigationBarItem(
             icon: const FaIcon(
-              FontAwesomeIcons.book,
+              FontAwesomeIcons.calendarDays,
               color: _iconColor,
             ),
             activeIcon: FaIcon(
-              FontAwesomeIcons.book,
+              FontAwesomeIcons.calendarDays,
               color: AppColors.primary2,
             ),
             label: 'My Books',
           ),
           BottomNavigationBarItem(
             icon: const FaIcon(
-              FontAwesomeIcons.solidBookmark,
+              FontAwesomeIcons.bookmark,
               color: _iconColor,
             ),
             activeIcon: FaIcon(
-              FontAwesomeIcons.solidBookmark,
+              FontAwesomeIcons.bookmark,
               color: AppColors.primary2,
             ),
             label: 'Reading List',
           ),
           BottomNavigationBarItem(
             icon: const FaIcon(
-              FontAwesomeIcons.solidUser,
+              FontAwesomeIcons.user,
               color: _iconColor,
             ),
             activeIcon: FaIcon(
-              FontAwesomeIcons.solidUser,
+              FontAwesomeIcons.user,
               color: AppColors.primary2,
             ),
             label: 'Profile',

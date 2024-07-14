@@ -35,7 +35,7 @@ class MyDrawer extends StatelessWidget {
                 style: TextStyle(
                     color: Theme.of(context)
                         .textTheme
-                        .bodyText2!
+                        .bodySmall!
                         .color!
                         .withOpacity(0.7)),
               ),
