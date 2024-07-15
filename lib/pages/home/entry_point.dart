@@ -38,11 +38,11 @@ class _EntryPointState extends State<EntryPoint> {
         items: [
           BottomNavigationBarItem(
             icon: const FaIcon(
-              FontAwesomeIcons.calendarDays,
+              FontAwesomeIcons.paperclip,
               color: _iconColor,
             ),
             activeIcon: FaIcon(
-              FontAwesomeIcons.calendarDays,
+              FontAwesomeIcons.paperclip,
               color: AppColors.primary2,
             ),
             label: 'My Books',

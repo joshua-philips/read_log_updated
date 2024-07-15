@@ -6,7 +6,7 @@ Color myGrey = const Color(0xff757575);
 Color blackBackground = const Color(0xff1b1b1d);
 
 const double defaultPadding = 16.0;
-const double defaultBorderRadius = 14.0;
+const double defaultBorderRadius = 10.0;
 
 const gapH8 = SizedBox(height: 8);
 const gapH16 = SizedBox(height: 16);
